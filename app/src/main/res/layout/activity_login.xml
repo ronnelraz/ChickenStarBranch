@@ -17,6 +17,129 @@
         android:id="@+id/logo"
         android:transitionName="logo"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:fontFamily="@font/amiko_semibold"
+        android:text="Login Admin Account"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/label"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="10dp"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/black"
+                app:startIconDrawable="@drawable/user"
+                app:startIconTint="@color/purple_500"
+                app:hintEnabled="true"
+
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/purple_500"
+                android:hint="Username"
+                app:expandedHintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    tools:text="username"
+                    android:drawablePadding="10dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/black"
+                app:startIconDrawable="@drawable/password"
+                app:startIconTint="@color/purple_500"
+                app:hintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:passwordToggleEnabled="true"
+                android:hint="Password"
+                app:passwordToggleTint="@color/purple_500"
+                app:hintTextColor="@color/purple_500"
+                app:expandedHintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    tools:text="Password"
+                    android:drawablePadding="10dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:onClick="login"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/enter"
+                app:iconGravity="textStart"
+                android:text="Login"
+                app:elevation="5dp"
+                app:rippleColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="20dp"
+                app:icon="@drawable/forgot"
+                app:iconTint="@color/black"
+                app:elevation="5dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:rippleColor="@color/black"
+                app:iconGravity="textStart"
+                android:text="Forgot Password"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:backgroundTint="#E7EAED"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
 
 
 </RelativeLayout>
