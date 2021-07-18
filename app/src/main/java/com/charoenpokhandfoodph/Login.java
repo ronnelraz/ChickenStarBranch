@@ -2,6 +2,7 @@ package com.charoenpokhandfoodph;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,5 +21,6 @@ public class Login extends AppCompatActivity {
 
     public void login(View view) {
         intent(Home.class,this);
+        animIntent(this,config.ltr);
     }
 }

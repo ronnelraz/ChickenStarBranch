@@ -36,6 +36,10 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.7.1'
     implementation 'com.karumi:dexter:6.2.3'
     implementation 'com.github.ivbaranov:materiallettericon:0.2.3'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
 
 
     testImplementation 'junit:junit:4.13.2'
@@ -47,5 +51,7 @@ dependencies {
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'com.github.tapadoo:alerter:7.1.0'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
 
 }

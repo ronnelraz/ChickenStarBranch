@@ -82,9 +82,12 @@
         <!-- The navigation drawer that comes from the left -->
         <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
         <com.google.android.material.navigation.NavigationView
+
             app:elevation="10dp"
             app:itemIconPadding="10dp"
-            app:itemIconSize="30dp"
+            app:itemIconSize="20dp"
+            app:itemHorizontalPadding="20dp"
+            app:itemShapeFillColor="#F1F2F3"
             app:itemIconTint="@color/purple_500"
             app:itemTextColor="@color/black"
             android:foreground="?attr/selectableItemBackground"
