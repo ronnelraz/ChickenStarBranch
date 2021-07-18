@@ -23,6 +23,8 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
 
+import static com.charoenpokhandfoodph.function.animIntent;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -31,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        function.getInstance(this);
+
 
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_WIFI_STATE,
-                        Manifest.permission.ACCESS_NETWORK_STATE
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.VIBRATE
 //                        Manifest.permission.READ_SMS,
 //                        Manifest.permission.RECEIVE_SMS,
 //                        Manifest.permission.CAMERA,
@@ -47,9 +52,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
                             new Handler().postDelayed(() -> {
-                                Intent i = new Intent(getApplicationContext(), Login.class);
-                                ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,(findViewById(R.id.logo)),"logo");
-                                startActivity(i,option.toBundle());
+
+                                if(function.ifLogin().equals("true")){
+
+                                        Intent i = new Intent(getApplicationContext(), Home.class);
+                                        startActivity(i);
+                                        animIntent(MainActivity.this,config.ltr);
+
+                                }
+                                else{
+                                    Intent i = new Intent(getApplicationContext(), Login.class);
+                                    ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,(findViewById(R.id.logo)),"logo");
+                                    startActivity(i,option.toBundle());
+
+                                }
+
 
 //                                    if(isLogin.equals("true")){
 ////                                        function.intent(getApplicationContext(),Home.class);
