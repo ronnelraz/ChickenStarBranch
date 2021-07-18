@@ -174,7 +174,7 @@ public class Home extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_cart: {
-                // Do something
+                FragmentActivity(new order());
                 return true;
             }
         }
