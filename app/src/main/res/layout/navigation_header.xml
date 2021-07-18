@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="110dp">
+
+    <com.github.ivbaranov.mli.MaterialLetterIcon
+        android:id="@+id/iconx"
+        app:mli_letter="U"
+        app:mli_initials="false"
+        app:mli_shape_type="round_rect"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/fullname"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:text="USERNAME"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_below="@+id/fullname"
+        android:id="@+id/address"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Address"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
+
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/down"/>
+
+</RelativeLayout>

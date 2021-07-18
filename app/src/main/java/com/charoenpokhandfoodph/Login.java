@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import static com.charoenpokhandfoodph.function.*;
+
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -16,5 +19,6 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(View view) {
+        intent(Home.class,this);
     }
 }

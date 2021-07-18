@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:elevation="10dp"
+        android:id="@+id/appbar"
+        android:background="@color/purple_700"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:background="@color/purple_700"
+            android:layout_width="match_parent"
+            app:menu="@menu/cart"
+            app:navigationIcon="@drawable/menu"
+            app:navigationIconTint="@color/white"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/toolbar"/>
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CHICKEN STAR BRANCH"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="18sp"
+                    android:textColor="#FFEB3B"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+            </RelativeLayout>
+
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_below="@+id/appbar"
+        android:id="@+id/drawer_layout"
+        tools:openDrawer="left"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- This LinearLayout represents the contents of the screen  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!-- The main content view where fragments are loaded -->
+            <FrameLayout
+                android:id="@+id/flContent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!-- The navigation drawer that comes from the left -->
+        <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+        <com.google.android.material.navigation.NavigationView
+            app:elevation="10dp"
+            app:itemIconPadding="10dp"
+            app:itemIconSize="30dp"
+            app:itemIconTint="@color/purple_500"
+            app:itemTextColor="@color/black"
+            android:foreground="?attr/selectableItemBackground"
+            android:id="@+id/nvView"
+            app:headerLayout="@layout/navigation_header"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            android:background="@android:color/white"
+            app:menu="@menu/menu_item" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+
+
+
+</RelativeLayout>
