@@ -13,7 +13,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+
+import com.charoenpokhandfoodph.Home;
+import com.charoenpokhandfoodph.R;
+import com.charoenpokhandfoodph.config;
 import com.charoenpokhandfoodph.connection.con_login;
+import com.charoenpokhandfoodph.function;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -78,7 +83,7 @@ public class Login extends AppCompatActivity {
                         function.setLogin(isgetchecked,name,address,UID,username,password);
                         islogin(isgetchecked);
                         intent(Home.class,Login.this);
-                        animIntent(Login.this,config.ltr);
+                        animIntent(Login.this, config.ltr);
                         getInstance(Login.this).alertDialog.dismiss();
                     }
                     else{

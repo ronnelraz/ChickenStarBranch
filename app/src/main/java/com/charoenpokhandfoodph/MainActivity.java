@@ -13,6 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+
+import com.charoenpokhandfoodph.Login;
+
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -24,6 +28,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import static com.charoenpokhandfoodph.function.animIntent;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         Intent i = new Intent(getApplicationContext(), Home.class);
                                         startActivity(i);
-                                        animIntent(MainActivity.this,config.ltr);
+                                        animIntent(MainActivity.this, config.ltr);
 
                                 }
                                 else{

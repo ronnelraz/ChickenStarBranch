@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.airbnb.lottie.animation.content.Content;
+import com.charoenpokhandfoodph.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tapadoo.alerter.Alerter;
 
