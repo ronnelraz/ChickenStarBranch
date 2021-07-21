@@ -20,6 +20,7 @@ import com.tapadoo.alerter.Alerter;
 import java.text.DecimalFormat;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import hari.bounceview.BounceView;
 
 import static maes.tech.intentanim.CustomIntent.customType;
 
@@ -95,6 +96,8 @@ public class function {
                 .setContentText(content)
                 .show();
     }
+
+   
 
 
     public static String format_number(int number){

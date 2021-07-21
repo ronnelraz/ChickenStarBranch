@@ -20,57 +20,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Customer Name"
-            android:textSize="20sp"
+            android:textSize="19sp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:textStyle="bold"/>
 
 
         <TextView
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded"
+            android:id="@+id/customername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="customer"
-            android:textSize="20sp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textSize="18sp"
+            style="@style/TextAppearance.MaterialComponents.Headline5"/>
 
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/icons8_home_address"
             android:drawableTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Address"
-            android:textSize="20sp"
+            android:textSize="19sp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:textStyle="bold"/>
 
         <TextView
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Address"
-            android:textSize="20sp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:id="@+id/address"
+            android:textSize="18sp"
+            style="@style/TextAppearance.MaterialComponents.Headline5"/>
 
 
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/icons8_phone"
             android:drawableTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact"
-            android:textSize="20sp"
+            android:textSize="19sp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:textStyle="bold"/>
 
         <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact"
-            android:textSize="20sp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:background="@drawable/rounded"
+            style="@style/TextAppearance.MaterialComponents.Headline5"/>
 
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/ok"
+            android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
 
     </LinearLayout>

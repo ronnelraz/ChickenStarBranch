@@ -1,5 +1,6 @@
 package com.charoenpokhandfoodph;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.charoenpokhandfoodph.Fragment.order;
 import com.charoenpokhandfoodph.adapter.OrderAdapter;
 import com.charoenpokhandfoodph.adapter.OrderViewListAdapter;
+import com.charoenpokhandfoodph.connection.con_customer_info;
 import com.charoenpokhandfoodph.connection.con_orderlist;
 import com.charoenpokhandfoodph.connection.con_orderviewlist;
 import com.charoenpokhandfoodph.modal.order_view_list;
@@ -36,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import hari.bounceview.BounceView;
 
 public class ViewOrder extends AppCompatActivity {
 
@@ -54,6 +60,10 @@ public class ViewOrder extends AppCompatActivity {
     public static TextView textView;
 
     public static String stc_customerName,stc_transctionNumber,stc_sub,stc_total,stc_km,stc_fee,stc_user_id,stc_tid,stc_customer_number;
+
+    private String name = "";
+    private String contact = "";
+    private String address = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,11 +184,78 @@ public class ViewOrder extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
-
             case R.id.action_orderinfo: {
-                function.toast(getApplicationContext(),stc_user_id);
+                Response.Listener<String> response = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            JSONArray array = jsonResponse.getJSONArray("data");
+
+                            if(success){
+
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject object = array.getJSONObject(i);
+                                    name = object.getString("name");
+                                    contact = object.getString("contact");
+                                    address = object.getString("address");
+                                }
+
+
+
+                                AlertDialog.Builder details = new AlertDialog.Builder(ViewOrder.this);
+                                View view = LayoutInflater.from(ViewOrder.this).inflate(R.layout.customer_info, null);
+                                TextView setcustomername = view.findViewById(R.id.customername);
+                                TextView setaddress = view.findViewById(R.id.address);
+                                TextView setcontact = view.findViewById(R.id.contact);
+                                MaterialButton ok = view.findViewById(R.id.ok);
+
+
+
+
+                                setcustomername.setText(name);
+                                setaddress.setText(address);
+                                setcontact.setText(contact);
+                                details.setView(view);
+                                AlertDialog alert = details.create();
+
+                                ok.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alert.dismiss();
+
+                                    }
+                                });
+
+                                alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.setCancelable(true);
+                                BounceView.addAnimTo(alert);
+                                alert.show();
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Response.ErrorListener errorListener = new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                };
+                con_customer_info get = new con_customer_info(stc_user_id,response,errorListener);
+                get.setRetryPolicy(new DefaultRetryPolicy(
+                        DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                RequestQueue queue = Volley.newRequestQueue(this);
+                queue.add(get);
                 return true;
             }
         }
