@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D4E4F4"
+    tools:context=".ViewOrder">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:background="@color/purple_700"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:background="@color/purple_700"
+            android:layout_width="match_parent"
+            app:menu="@menu/ordermenu"
+            app:navigationIcon="@drawable/icons8_back"
+            app:navigationIconTint="@color/white"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+              <TextView
+                  android:id="@+id/customerName"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Customer Name"
+                  android:textColor="#fff"
+                  android:textSize="18sp"
+                  style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+              <TextView
+                  android:id="@+id/transactionNumber"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="transaction"
+                  android:textColor="#fff"
+                  android:textSize="15sp"
+                  style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+
+          </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/orderinfomation"
+        app:cardBackgroundColor="#D5F4E3"
+        android:layout_marginTop="5dp"
+        android:layout_margin="10dp"
+        android:layout_below="@id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:drawableLeft="@drawable/icons8_info"
+                android:drawableTint="@color/black"
+                android:gravity="center|left"
+                android:drawablePadding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Special Request"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginTop="3sp"
+                android:layout_marginLeft="30dp"
+                android:drawablePadding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Information"/>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+   <androidx.recyclerview.widget.RecyclerView
+       tools:listitem="@layout/list_order"
+       tools:itemCount="10"
+       android:layout_below="@+id/orderinfomation"
+       android:layout_above="@id/controller"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/data"
+       android:layout_marginBottom="1dp"/>
+
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="11dp"
+        android:elevation="11dp"
+        android:layout_marginBottom="-15dp"
+        app:cardCornerRadius="24dp"
+        app:cardBackgroundColor="#FFFFFF"
+        android:id="@+id/controller"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <RelativeLayout
+           android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Distance"
+                        android:layout_gravity="left"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:textAlignment="textEnd"
+                        android:id="@+id/km"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Subtotal"
+                        android:layout_gravity="left"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:textAlignment="textEnd"
+                        android:id="@+id/SubTotal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="P0.00"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Delivery Fee"
+                        android:layout_gravity="left"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:textAlignment="textEnd"
+                        android:id="@+id/DeliveryFee"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="P0.00"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BCBCBC"/>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="GRAND TOTAL"
+                        android:layout_gravity="left"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:textAlignment="textEnd"
+                        android:id="@+id/grandtotal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="P0.00"
+                        android:textSize="18sp"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BCBCBC"/>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/process_container"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/prepare"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="55dp"
+                        android:text="Prepare"
+                        app:backgroundTint="#FF9800"
+                        app:iconSize="20dp"
+                        app:cornerRadius="20dp"
+                        android:textSize="12sp"
+                        app:icon="@drawable/icons8_delivered_box"
+                        app:iconGravity="textStart"
+                        android:layout_gravity="left"/>
+
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:enabled="false"
+                        android:id="@+id/deliver"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="55dp"
+                        android:text="Deliver"
+                        app:backgroundTint="#95a5a6"
+                        app:iconSize="20dp"
+                        app:cornerRadius="20dp"
+                        android:textSize="12sp"
+                        app:icon="@drawable/icons8_motorcycle_delivery_multiple_boxes"
+                        app:iconGravity="textStart"
+                        android:layout_gravity="left"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:enabled="false"
+                        android:id="@+id/complete"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="55dp"
+                        android:text="Complete"
+                        app:backgroundTint="#95a5a6"
+                        app:iconSize="20dp"
+                        app:cornerRadius="20dp"
+                        android:textSize="10sp"
+                        app:icon="@drawable/icons8_ok"
+                        app:iconGravity="textStart"
+                        android:layout_gravity="left"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:id="@+id/action_container"
+                android:layout_alignParentBottom="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.google.android.material.button.MaterialButton
+                    android:onClick="reject"
+                    android:id="@+id/reject"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:text="Reject"
+                    app:backgroundTint="@color/purple_700"
+                    app:cornerRadius="20dp"
+                    app:icon="@drawable/icons8_cancel_1"
+                    app:iconGravity="textStart"
+                    android:layout_gravity="left"
+                    app:elevation="5dp"/>
+
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
+
+
+                <com.google.android.material.button.MaterialButton
+                    app:elevation="5dp"
+                    android:onClick="accept"
+                    android:id="@+id/accept"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:text="Accept"
+                    app:icon="@drawable/icons8_ok"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="20dp"
+                    android:layout_gravity="right"
+                    app:backgroundTint="#27ae60"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

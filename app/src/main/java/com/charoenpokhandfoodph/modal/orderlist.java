@@ -2,9 +2,9 @@ package com.charoenpokhandfoodph.modal;
 
 public class orderlist {
 
-    public String order_id,transid,product_id,sub,charge,total,accept,name,datetime,client_id;
+    public String order_id,transid,product_id,sub,charge,total,accept,name,datetime,client_id,km;
 
-    public orderlist(String order_id, String transid, String product_id, String sub, String charge, String total, String accept, String name, String datetime, String client_id) {
+    public orderlist(String order_id, String transid, String product_id, String sub, String charge, String total, String accept, String name, String datetime, String client_id, String km) {
         this.order_id = order_id;
         this.transid = transid;
         this.product_id = product_id;
@@ -15,7 +15,9 @@ public class orderlist {
         this.name = name;
         this.datetime = datetime;
         this.client_id = client_id;
+        this.km = km;
     }
+
 
     public String getOrder_id() {
         return order_id;
@@ -95,5 +97,13 @@ public class orderlist {
 
     public void setClient_id(String client_id) {
         this.client_id = client_id;
+    }
+
+    public String getKm() {
+        return km;
+    }
+
+    public void setKm(String km) {
+        this.km = km;
     }
 }

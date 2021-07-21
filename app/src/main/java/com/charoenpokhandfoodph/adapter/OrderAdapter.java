@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.charoenpokhandfoodph.Home;
 
 import com.charoenpokhandfoodph.R;
+import com.charoenpokhandfoodph.ViewOrder;
+import com.charoenpokhandfoodph.config;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.orderlist;
 import com.google.android.material.card.MaterialCardView;
@@ -51,7 +53,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                function.toast(v.getContext(), newsList.size() + " ");
+                function.intent(ViewOrder.class,v.getContext());
+                function.animIntent(v.getContext(), config.ltr);
+
+                ViewOrder.stc_customerName = getData.getName();
+                ViewOrder.stc_transctionNumber = getData.getTransid();
+                ViewOrder.stc_sub = getData.getSub();
+                ViewOrder.stc_total = getData.getTotal();
+                ViewOrder.stc_km = getData.getKm();
+                ViewOrder.stc_fee = getData.getCharge();
             }
         });
 

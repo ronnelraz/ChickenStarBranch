@@ -28,6 +28,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import static com.charoenpokhandfoodph.function.animIntent;
+import static com.charoenpokhandfoodph.function.toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,19 +59,28 @@ public class MainActivity extends AppCompatActivity {
                         if (report.areAllPermissionsGranted()) {
                             new Handler().postDelayed(() -> {
 
-                                if(function.ifLogin().equals("true")){
+                               if(function.ifLogin() == null){
+                                   Intent i = new Intent(getApplicationContext(), Login.class);
+                                   ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,(findViewById(R.id.logo)),"logo");
+                                   startActivity(i,option.toBundle());
+                               }
+                               else{
+                                   if(function.ifLogin().equals("true")){
+//
+                                       Intent i = new Intent(getApplicationContext(), Home.class);
+                                       startActivity(i);
+                                       animIntent(MainActivity.this, config.ltr);
 
-                                        Intent i = new Intent(getApplicationContext(), Home.class);
-                                        startActivity(i);
-                                        animIntent(MainActivity.this, config.ltr);
+                                   }
+                                   else{
+                                       Intent i = new Intent(getApplicationContext(), Login.class);
+                                       ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,(findViewById(R.id.logo)),"logo");
+                                       startActivity(i,option.toBundle());
 
-                                }
-                                else{
-                                    Intent i = new Intent(getApplicationContext(), Login.class);
-                                    ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,(findViewById(R.id.logo)),"logo");
-                                    startActivity(i,option.toBundle());
+                                   }
+                               }
 
-                                }
+//
 
 
 //                                    if(isLogin.equals("true")){

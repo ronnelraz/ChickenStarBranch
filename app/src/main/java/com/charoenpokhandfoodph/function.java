@@ -57,7 +57,7 @@ public class function {
 
     public static String getCountorder(){
         sharedPreferences = cont.getSharedPreferences(DATA, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(COUNTORDER,"username");
+        return sharedPreferences.getString(COUNTORDER,"0");
     }
     public static boolean setCountorder(String order){
         sharedPreferences = cont.getSharedPreferences(DATA,Context.MODE_PRIVATE);

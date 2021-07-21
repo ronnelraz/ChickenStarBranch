@@ -238,7 +238,8 @@ public class Home extends AppCompatActivity {
 
                         else{
                             textCartItemCount.setText(String.valueOf(Math.min(array.length(), 99)));
-                            if(array.length() <=  Integer.parseInt(function.getCountorder())){
+                            Log.d("Home",array.length() + " " + Integer.valueOf(function.getCountorder()));
+                            if(array.length() <= Integer.parseInt(function.getCountorder())){
                                 order.loadData(getApplicationContext());
                                 function.setCountorder(String.valueOf(array.length()));
                             }

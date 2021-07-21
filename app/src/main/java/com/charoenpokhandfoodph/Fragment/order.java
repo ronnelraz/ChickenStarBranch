@@ -109,7 +109,8 @@ public class order extends Fragment {
                                   object.getString("accept"),
                                   object.getString("name"),
                                   object.getString("datetime"),
-                                  object.getString("client_id")
+                                  object.getString("client_id"),
+                                  object.getString("km")
                           );
 
                           list.add(item);
