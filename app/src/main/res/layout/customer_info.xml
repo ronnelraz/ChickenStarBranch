@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:drawableLeft="@drawable/icons8_customer2"
+            android:drawableTint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="customer"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/icons8_home_address"
+            android:drawableTint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/icons8_phone"
+            android:drawableTint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact"
+            android:textSize="20sp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

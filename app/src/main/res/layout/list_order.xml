@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    app:clickToClose="true"
-    app:rightEdgeSwipeOffset="0dp">
+    app:cardCornerRadius="10dp"
+    android:layout_margin="3dp"
+    app:cardElevation="8dp">
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:clickToClose="true"
+        app:rightEdgeSwipeOffset="0dp">
 
     <LinearLayout
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:id="@+id/cancelitem"
         android:tag="Bottom3"
@@ -37,6 +45,7 @@
             android:layout_height="105dp">
 
             <ProgressBar android:id="@+id/loading"
+                android:progressBackgroundTint="@color/purple_700"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="35dp"
@@ -44,19 +53,28 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"/>
 
+
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="5dp"
+                android:layout_height="130dp"
                 android:src="@drawable/bg"
                 android:scaleType="centerCrop"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 app:riv_corner_radius="5dp"/>
 
+<!--            <View-->
+<!--                android:layout_width="110dp"-->
+<!--                android:background="@drawable/left"-->
+<!--                android:layout_height="130dp"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                />-->
+
             <TextView
-                android:text="100%\noff"
+                tools:text="100%\noff"
                 android:textSize="12dp"
                 android:textStyle="bold"
                 android:textColor="#fff"
@@ -78,6 +96,7 @@
                 android:backgroundTint="#e55039"/>
 
             <LinearLayout
+                android:gravity="center|top"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -96,7 +115,7 @@
                     android:textAllCaps="true"/>
 
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textStyle="italic"
                     android:textColor="#95a5a6"
@@ -106,6 +125,7 @@
                     android:text="Price" android:textAllCaps="true"/>
 
                 <TextView
+                    android:layout_marginTop="3dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#3d8c40"
@@ -116,18 +136,22 @@
                     android:textAllCaps="true"/>
 
 
+
+
             </LinearLayout>
 
 
             <ezy.ui.view.NumberStepper
+                android:padding="5dp"
+                android:layout_height="40sp"
                 android:id="@+id/qty"
-                android:background="#FAF8F9"
+                android:background="#FFFFFF"
                 android:layout_width="120dp"
                 android:layout_marginTop="3dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:layout_centerInParent="true"
-                app:nsButtonSize="30dp"
+                app:nsButtonSize="27dp"
                 app:nsMaxValue="13"
                 app:nsMinValue="1"
                 app:nsStep="0"
@@ -135,13 +159,14 @@
                 style="@style/NumberStepper"/>
 
             <TextView
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#3d8c40"
                 android:id="@+id/subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="-10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="-3dp"
                 android:text="Total"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"/>
@@ -149,5 +174,5 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-</com.daimajia.swipe.SwipeLayout>
+    </com.daimajia.swipe.SwipeLayout>
+</androidx.cardview.widget.CardView>

@@ -17,6 +17,8 @@ import com.charoenpokhandfoodph.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tapadoo.alerter.Alerter;
 
+import java.text.DecimalFormat;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static maes.tech.intentanim.CustomIntent.customType;
@@ -35,7 +37,7 @@ public class function {
     public static final String UID = "UID";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORd";
-
+    public static final String CONTACT = "CONTACT";
     public static final String COUNTORDER = "0";
 
 
@@ -59,12 +61,45 @@ public class function {
         sharedPreferences = cont.getSharedPreferences(DATA, Context.MODE_PRIVATE);
         return sharedPreferences.getString(COUNTORDER,"0");
     }
+
+
+
     public static boolean setCountorder(String order){
         sharedPreferences = cont.getSharedPreferences(DATA,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString(COUNTORDER,order);
         editor.apply();
         return true;
+    }
+
+
+
+    public static String getPhone(){
+        sharedPreferences = cont.getSharedPreferences(DATA, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(CONTACT,"0");
+    }
+
+    public static boolean setPhone(String phone){
+        sharedPreferences = cont.getSharedPreferences(DATA,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString(CONTACT,phone);
+        editor.apply();
+        return true;
+    }
+
+
+
+    public static void ErrorMsg(Context context,String Title,String content){
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(Title)
+                .setContentText(content)
+                .show();
+    }
+
+
+    public static String format_number(int number){
+        DecimalFormat formatter = new DecimalFormat("#,###,###.00");
+        return formatter.format(number);
     }
 
     public static String getFullname(){

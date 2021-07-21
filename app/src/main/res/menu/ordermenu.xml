@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/action_cart"
+        android:id="@+id/action_orderinfo"
         android:iconTint="@color/white"
-        android:icon="@drawable/icons8_info"
-        android:title="info"
+        android:icon="@drawable/icons8_customer"
+        android:title="Customer Information"
         android:tooltipText="Order Information"
         app:showAsAction="always"/>
 

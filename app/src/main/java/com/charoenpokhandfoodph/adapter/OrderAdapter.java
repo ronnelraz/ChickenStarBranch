@@ -62,6 +62,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 ViewOrder.stc_total = getData.getTotal();
                 ViewOrder.stc_km = getData.getKm();
                 ViewOrder.stc_fee = getData.getCharge();
+                ViewOrder.stc_user_id = getData.getClient_id();
+                ViewOrder.stc_tid = getData.getTransid();
+                ViewOrder.stc_customer_number = getData.getContact();
+
+
+
+//                function.toast(v.getContext(),getData.client_id + " " + getData.getTransid());
             }
         });
 

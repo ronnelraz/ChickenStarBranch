@@ -92,6 +92,7 @@ public class order extends Fragment {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
+                    String contact = jsonResponse.getString("con");
                     JSONArray array = jsonResponse.getJSONArray("data");
 
                     if(success){
@@ -110,7 +111,8 @@ public class order extends Fragment {
                                   object.getString("name"),
                                   object.getString("datetime"),
                                   object.getString("client_id"),
-                                  object.getString("km")
+                                  object.getString("km"),
+                                  contact
                           );
 
                           list.add(item);

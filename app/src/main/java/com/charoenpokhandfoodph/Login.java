@@ -76,12 +76,14 @@ public class Login extends AppCompatActivity {
                     String name = jsonResponse.getString("name");
                     String address = jsonResponse.getString("address");
                     String UID = jsonResponse.getString("UID");
+                    String Phone = jsonResponse.getString("phone");
 
 
                     if(success){
                         String isgetchecked = ischecked == true ? "true" : "false";
                         function.setLogin(isgetchecked,name,address,UID,username,password);
                         islogin(isgetchecked);
+                        function.setPhone(Phone);
                         intent(Home.class,Login.this);
                         animIntent(Login.this, config.ltr);
                         getInstance(Login.this).alertDialog.dismiss();
