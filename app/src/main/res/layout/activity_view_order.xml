@@ -10,13 +10,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:background="@color/purple_700"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:background="@color/purple_700"
+            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             app:menu="@menu/ordermenu"
             app:navigationIcon="@drawable/icons8_back"
@@ -364,7 +364,7 @@
                     android:layout_weight="1"
                     android:layout_height="55dp"
                     android:text="Reject"
-                    app:backgroundTint="@color/purple_700"
+                    app:backgroundTint="@color/colorPrimaryDark"
                     app:cornerRadius="20dp"
                     app:icon="@drawable/icons8_cancel_1"
                     app:iconGravity="textStart"

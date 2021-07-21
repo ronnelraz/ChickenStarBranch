@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.charoenpokhandfoodph.Fragment.order;
 import com.charoenpokhandfoodph.adapter.OrderAdapter;
 import com.charoenpokhandfoodph.adapter.OrderViewListAdapter;
+import com.charoenpokhandfoodph.connection.con_accept_order;
 import com.charoenpokhandfoodph.connection.con_customer_info;
 import com.charoenpokhandfoodph.connection.con_orderlist;
 import com.charoenpokhandfoodph.connection.con_orderviewlist;
@@ -41,7 +42,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import hari.bounceview.BounceView;
+
+import static com.charoenpokhandfoodph.function.getInstance;
 
 public class ViewOrder extends AppCompatActivity {
 
@@ -163,8 +167,64 @@ public class ViewOrder extends AppCompatActivity {
     }
 
     public void accept(View view) {
-        action_container.setVisibility(View.GONE);
-        process_container.setVisibility(View.VISIBLE);
+        function.getInstance(this).Preloader(this);
+        new SweetAlertDialog(view.getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                .setCustomImage(R.drawable.icons8_ok_2)
+                .setTitleText("Accept order")
+                .setContentText("You accept this order?")
+                .setConfirmText("Accept!")
+                .setConfirmButtonBackgroundColor(Color.parseColor("#27ae60"))
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+
+                        Response.Listener<String> response = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    boolean success = jsonResponse.getBoolean("success");
+
+                                    if(success){
+                                        getInstance(view.getContext()).alertDialog.dismiss();
+                                        action_container.setVisibility(View.GONE);
+                                        process_container.setVisibility(View.VISIBLE);
+
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        Response.ErrorListener errorListener = new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        };
+                        con_accept_order get = new con_accept_order(stc_transctionNumber,response,errorListener);
+                        get.setRetryPolicy(new DefaultRetryPolicy(
+                                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                        queue.add(get);
+                    }
+                })
+                .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .show();
+
+
+
+
+
+//        function.toast(view.getContext(),stc_transctionNumber);
     }
 
 

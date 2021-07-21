@@ -10,13 +10,13 @@
     <com.google.android.material.appbar.AppBarLayout
         app:elevation="10dp"
         android:id="@+id/appbar"
-        android:background="@color/purple_700"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:background="@color/purple_700"
+            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             app:menu="@menu/cart"
             app:navigationIcon="@drawable/menu"
@@ -76,7 +76,7 @@
             app:itemIconSize="20dp"
             app:itemHorizontalPadding="20dp"
             app:itemShapeFillColor="#F1F2F3"
-            app:itemIconTint="@color/purple_500"
+            app:itemIconTint="@color/colorPrimary"
             app:itemTextColor="@color/black"
             android:foreground="?attr/selectableItemBackground"
             android:id="@+id/nvView"

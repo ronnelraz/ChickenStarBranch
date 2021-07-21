@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_500">#c0392b</color>
-    <color name="purple_700">#e74c3c</color>
+    <color name="colorPrimary">#c0392b</color>
+    <color name="colorPrimaryDark">#e74c3c</color>
     <color name="black">#2c3e50</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorAccent">#292929</color>
+    <color name="colorShimmer">#e4e2e2</color>
+    <color name="colorText">#ffffff</color>
+    <color name="color_accent">#7c4dff</color>
+    <color name="color_error">#f44336</color>
+    <color name="color_success">#3ccd88</color>
 </resources>
