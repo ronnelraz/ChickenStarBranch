@@ -3,6 +3,7 @@ package com.charoenpokhandfoodph;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -23,15 +25,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.charoenpokhandfoodph.Fragment.order;
-import com.charoenpokhandfoodph.adapter.OrderAdapter;
 import com.charoenpokhandfoodph.adapter.OrderViewListAdapter;
 import com.charoenpokhandfoodph.connection.con_accept_order;
+import com.charoenpokhandfoodph.connection.con_complete;
 import com.charoenpokhandfoodph.connection.con_customer_info;
-import com.charoenpokhandfoodph.connection.con_orderlist;
 import com.charoenpokhandfoodph.connection.con_orderviewlist;
+import com.charoenpokhandfoodph.connection.con_deliver_order;
+import com.charoenpokhandfoodph.connection.con_process_order;
 import com.charoenpokhandfoodph.modal.order_view_list;
-import com.charoenpokhandfoodph.modal.orderlist;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 
@@ -49,8 +50,8 @@ import static com.charoenpokhandfoodph.function.getInstance;
 
 public class ViewOrder extends AppCompatActivity {
 
-    private LinearLayout action_container,process_container;
-    private MaterialButton prepare,deliver,complete;
+    private static LinearLayout action_container,process_container;
+    private static MaterialButton prepare,deliver,complete;
     private TextView customerName,transactionNumber;
     private MaterialToolbar toolbar;
     public static TextView km,SubTotal,DeliveryFee,grandtotal;
@@ -68,6 +69,10 @@ public class ViewOrder extends AppCompatActivity {
     private String name = "";
     private String contact = "";
     private String address = "";
+
+
+    private static MaterialButton reject,accept;
+    private static ProgressBar actionloading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,12 @@ public class ViewOrder extends AppCompatActivity {
         process_container = findViewById(R.id.process_container);
 
         textView = findViewById(R.id.orderinstruction);
+
+        //action
+        reject = findViewById(R.id.reject);
+        accept = findViewById(R.id.accept);
+        actionloading = findViewById(R.id.actionloading);
+
 
         //button process
         prepare = findViewById(R.id.prepare);
@@ -127,57 +138,177 @@ public class ViewOrder extends AppCompatActivity {
 
     protected void process_button_orders(){
         prepare.setOnClickListener(v -> {
-            prepare.setText("Prepared");
-            prepare.setBackgroundColor(Color.parseColor("#4CAF50"));
-            prepare.setIconResource(R.drawable.icons8_ok);
-            prepare.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
-            prepare.setTextColor(Color.parseColor("#ffffff"));
-            deliver.setEnabled(true);
-            deliver.setBackgroundColor(Color.parseColor("#FF9800"));
-            prepare.setEnabled(false);
+            function.getInstance(v.getContext()).Preloader(v.getContext());
+            Response.Listener<String> response = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+
+                        if(success){
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                            prepare.setText("Prepared");
+                            prepare.setBackgroundColor(Color.parseColor("#4CAF50"));
+                            prepare.setIconResource(R.drawable.icons8_ok);
+                            prepare.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                            prepare.setTextColor(Color.parseColor("#ffffff"));
+                            deliver.setEnabled(true);
+                            deliver.setBackgroundColor(Color.parseColor("#FF9800"));
+                            prepare.setEnabled(false);
+
+                        }
+                        else{
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            };
+            con_process_order get = new con_process_order(stc_transctionNumber,response,errorListener);
+            get.setRetryPolicy(new DefaultRetryPolicy(
+                    DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(get);
         });
 
         deliver.setOnClickListener(v -> {
 
-            deliver.setText("On the Way");
-            deliver.setTextSize(10);
-            deliver.setBackgroundColor(Color.parseColor("#4CAF50"));
-            deliver.setIconResource(R.drawable.icons8_ok);
-            deliver.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
-            deliver.setTextColor(Color.parseColor("#ffffff"));
-            deliver.setEnabled(false);
-            prepare.setEnabled(false);
-            complete.setEnabled(true);
-            complete.setBackgroundColor(Color.parseColor("#FF9800"));
+            function.getInstance(v.getContext()).Preloader(v.getContext());
+            Response.Listener<String> response = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+
+                        if(success){
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                            deliver.setText("On the Way");
+                            deliver.setTextSize(10);
+                            deliver.setBackgroundColor(Color.parseColor("#4CAF50"));
+                            deliver.setIconResource(R.drawable.icons8_ok);
+                            deliver.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                            deliver.setTextColor(Color.parseColor("#ffffff"));
+                            deliver.setEnabled(false);
+                            prepare.setEnabled(false);
+                            complete.setEnabled(true);
+                            complete.setBackgroundColor(Color.parseColor("#FF9800"));
+
+                        }
+                        else{
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            };
+            con_deliver_order get = new con_deliver_order(stc_transctionNumber,response,errorListener);
+            get.setRetryPolicy(new DefaultRetryPolicy(
+                    DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(get);
 
         });
 
         complete.setOnClickListener(v -> {
-            complete.setText("Completed");
-            complete.setBackgroundColor(Color.parseColor("#4CAF50"));
-            complete.setTextColor(Color.parseColor("#ffffff"));
-            complete.setIconResource(R.drawable.icons8_ok);
-            complete.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+            function.getInstance(v.getContext()).Preloader(v.getContext());
+            Response.Listener<String> response = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+
+                        if(success){
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                            complete.setText("Completed");
+                            complete.setBackgroundColor(Color.parseColor("#4CAF50"));
+                            complete.setTextColor(Color.parseColor("#ffffff"));
+                            complete.setIconResource(R.drawable.icons8_ok);
+                            complete.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                            function.intent(Home.class,v.getContext());
+                            function.animIntent(v.getContext(),config.rtl);
+
+                        }
+                        else{
+                            getInstance(v.getContext()).alertDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            };
+            con_complete get = new con_complete(stc_transctionNumber,response,errorListener);
+            get.setRetryPolicy(new DefaultRetryPolicy(
+                    DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(get);
+
 
         });
     }
 
     public void reject(View view) {
 
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Are you sure?")
+                .setContentText("You want to Reject this order?")
+                .setConfirmText("Yes")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .show();
+
     }
 
     public void accept(View view) {
-        function.getInstance(this).Preloader(this);
+
         new SweetAlertDialog(view.getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setCustomImage(R.drawable.icons8_ok_2)
-                .setTitleText("Accept order")
-                .setContentText("You accept this order?")
+                .setTitleText("Accept Now?")
                 .setConfirmText("Accept!")
                 .setConfirmButtonBackgroundColor(Color.parseColor("#27ae60"))
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
+                        function.getInstance(view.getContext()).Preloader(view.getContext());
 
                         Response.Listener<String> response = new Response.Listener<String>() {
                             @Override
@@ -190,7 +321,9 @@ public class ViewOrder extends AppCompatActivity {
                                         getInstance(view.getContext()).alertDialog.dismiss();
                                         action_container.setVisibility(View.GONE);
                                         process_container.setVisibility(View.VISIBLE);
-
+                                    }
+                                    else{
+                                        getInstance(view.getContext()).alertDialog.dismiss();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -327,6 +460,8 @@ public class ViewOrder extends AppCompatActivity {
     //load order
     public static void loadData(String user_id,String tid,Context context){
         list.clear();
+        reject.setEnabled(false);
+        accept.setEnabled(false);
         Response.Listener<String> response = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -344,6 +479,50 @@ public class ViewOrder extends AppCompatActivity {
                     ViewOrder.grandtotal.setText("₱"+function.format_number(newTotal));
 
                     String specialOrder = jsonResponse.getString("remarks");
+                    String actionButton = jsonResponse.getString("action");
+                    String processButton = jsonResponse.getString("processButton");
+
+                    if(actionButton.equals("ACCEPTED")){
+                        action_container.setVisibility(View.GONE);
+                        process_container.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        action_container.setVisibility(View.VISIBLE);
+                        process_container.setVisibility(View.GONE);
+                    }
+
+                    if(processButton.equals("PROCESSED")){
+                        prepare.setText("Prepared");
+                        prepare.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        prepare.setIconResource(R.drawable.icons8_ok);
+                        prepare.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                        prepare.setTextColor(Color.parseColor("#ffffff"));
+                        deliver.setEnabled(true);
+                        deliver.setBackgroundColor(Color.parseColor("#FF9800"));
+                        prepare.setEnabled(false);
+                    }
+                    else if(processButton.equals("PREPARED")){
+                        prepare.setText("Prepared");
+                        prepare.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        prepare.setIconResource(R.drawable.icons8_ok);
+                        prepare.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                        prepare.setTextColor(Color.parseColor("#ffffff"));
+                        deliver.setEnabled(true);
+                        deliver.setBackgroundColor(Color.parseColor("#FF9800"));
+                        prepare.setEnabled(false);
+
+                        deliver.setText("On the Way");
+                        deliver.setTextSize(10);
+                        deliver.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        deliver.setIconResource(R.drawable.icons8_ok);
+                        deliver.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                        deliver.setTextColor(Color.parseColor("#ffffff"));
+                        deliver.setEnabled(false);
+                        prepare.setEnabled(false);
+                        complete.setEnabled(true);
+                        complete.setBackgroundColor(Color.parseColor("#FF9800"));
+                    }
+
 
                     if(specialOrder.isEmpty()){
                         orderinfomation.setVisibility(View.GONE);
@@ -356,7 +535,9 @@ public class ViewOrder extends AppCompatActivity {
                     JSONArray array = jsonResponse.getJSONArray("data");
 
                     if(success){
-
+                        actionloading.setVisibility(View.GONE);
+                        reject.setEnabled(true);
+                        accept.setEnabled(true);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(i);
 
@@ -380,10 +561,7 @@ public class ViewOrder extends AppCompatActivity {
                                     object.getString("promotion_code")
 
                             );
-
                             list.add(item);
-
-
                         }
                         adapter = new OrderViewListAdapter(list,context);
                         recyclerView.setAdapter(adapter);

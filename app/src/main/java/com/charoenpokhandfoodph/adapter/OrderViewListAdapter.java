@@ -73,6 +73,16 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final order_view_list getData = newsList.get(position);
 
+        if(getData.getStatusHeader().equals("ACCEPTED")){
+            holder.swipe.setSwipeEnabled(false);
+            holder.qty.setEnabled(false);
+        }
+        else{
+            holder.swipe.setSwipeEnabled(true);
+            holder.qty.setEnabled(true);
+        }
+
+
         holder.productname.setText(getData.getName());
         holder.qty.setValue(Integer.valueOf(getData.getQty()));
         Picasso.get().load(config.URLIMGPRODUCT + getData.img).into(holder.img, new Callback() {

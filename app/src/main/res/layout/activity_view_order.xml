@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F1EEEE"
     tools:context=".ViewOrder">
 
 
@@ -104,7 +104,7 @@
 
    <androidx.recyclerview.widget.RecyclerView
        tools:listitem="@layout/list_order"
-       tools:itemCount="10"
+       tools:itemCount="2"
        android:layout_below="@+id/orderinfomation"
        android:layout_above="@id/controller"
        android:layout_width="match_parent"
@@ -125,12 +125,21 @@
         android:layout_height="230dp">
 
         <RelativeLayout
-           android:layout_margin="5dp"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ProgressBar
+                android:id="@+id/actionloading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="80dp"
+                android:progressTint="@color/black"
+                android:background="#48292929"/>
+
 
             <LinearLayout
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -246,7 +255,7 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -261,7 +270,7 @@
                         android:layout_height="match_parent"/>
 
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textAlignment="textEnd"
                         android:id="@+id/grandtotal"
                         android:layout_width="0dp"
