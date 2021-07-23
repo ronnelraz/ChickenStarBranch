@@ -7,18 +7,16 @@ import com.charoenpokhandfoodph.config;
 import java.util.HashMap;
 import java.util.Map;
 
-public class con_updateQty extends StringRequest {
+public class con_customer_list extends StringRequest {
 
-    public static final String con = config.URL+"_mobile_updateorder_new.php";
+    public static final String con = config.URL+"_load_customer_order.php";
     private Map<String,String> params;
 
-    public con_updateQty(String order_id, String total, String qty,String type, Response.Listener<String> Listener, Response.ErrorListener errorListener){
+    public con_customer_list(String user_id, String tid, Response.Listener<String> Listener, Response.ErrorListener errorListener){
         super(Method.POST,con,Listener,errorListener);
         params = new HashMap<>();
-        params.put("order_id",order_id);
-        params.put("total",total);
-        params.put("qty",qty);
-        params.put("type",type);
+        params.put("user_id",user_id);
+        params.put("tid",tid);
     }
 
     @Override

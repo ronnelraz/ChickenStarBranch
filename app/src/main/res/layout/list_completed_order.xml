@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?attr/selectableItemBackground"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/card"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/iconstatus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            tools:background="@drawable/icons8_ok_3"/>
+
+
+
+        <LinearLayout
+            android:layout_marginLeft="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/customer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Name"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/transactionNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transaction ID"
+                android:textSize="13dp"/>
+
+            <TextView
+                android:id="@+id/datetime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/icons8_forward"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

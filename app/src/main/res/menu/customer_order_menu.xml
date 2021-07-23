@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+
+    <item
+        android:id="@+id/order_info"
+        android:iconTint="@color/white"
+        android:icon="@drawable/icons8_show_property"
+        android:title="Order Instruction"
+        android:tooltipText="Order Information"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/track_order"
+        android:iconTint="@color/white"
+        android:icon="@drawable/icons8_track_order"
+        android:title="Customer Track Order"
+        android:tooltipText="Order Information"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_orderinfo"
+        android:iconTint="@color/white"
+        android:icon="@drawable/icons8_customer"
+        android:title="Customer Information"
+        android:tooltipText="Order Information"
+        app:showAsAction="always"/>
+
+</menu>

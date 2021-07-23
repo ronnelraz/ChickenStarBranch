@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.airbnb.lottie.animation.content.Content;
 import com.charoenpokhandfoodph.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tapadoo.alerter.Alerter;
 
@@ -173,10 +174,25 @@ public class function {
         Alerter.create(activity)
                 .setText(msg)
                 .setIcon(icon)
-                .setIconColorFilter(Color.parseColor("#ffffff"))
+                .setIconColorFilter(0)
                 .setBackgroundColorInt(Color.parseColor(color)) // or setBackgroundColorInt(Color.CYAN)// Optional - default is 38dp
                 .show();
     }
+
+
+    public static void noti(Context context,String msg,String body,int icon){
+//        MaterialButton button = new MaterialButton(context);
+        new SweetAlertDialog(context, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                .setTitleText(msg)
+                .setContentText(body)
+                .setCustomImage(icon)
+                .showCancelButton(false)
+                .showCancelButton(false)
+                .show();
+
+    }
+
+
 
 
     public static void toast(Context context,String msg){

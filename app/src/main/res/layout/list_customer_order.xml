@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="3dp"
+    app:cardElevation="8dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:foreground="?android:attr/selectableItemBackground">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="105dp">
+
+
+                <ProgressBar android:id="@+id/loading"
+                    android:progressBackgroundTint="@color/colorPrimaryDark"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
+
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img"
+                    android:layout_width="100dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/bg"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    app:riv_corner_radius="5dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    tools:background="@drawable/rightcancel"
+                    android:id="@+id/relativebg"/>
+
+
+                <TextView
+                    tools:text="100%\noff"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:id="@+id/discount"
+                    android:background="@drawable/ribbon_mark"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="53dp"
+                    android:layout_marginTop="-8dp"
+                    android:layout_alignParentTop="true"
+                    android:textAlignment="center"
+                    android:backgroundTint="#e55039"/>
+
+
+
+                <LinearLayout
+                    android:gravity="center|top"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="110dp"
+                    android:layout_alignParentLeft="true">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:id="@+id/productname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="ProductName"
+                        android:textAllCaps="true"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:textColor="#95a5a6"
+                        android:id="@+id/origprice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Price" android:textAllCaps="true"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#3d8c40"
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textAllCaps="true"/>
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="-3dp"
+                    android:text="Total"
+                    android:layout_marginLeft="110dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#3d8c40"
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="-3dp"
+                    android:text="Status"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"/>
+
+
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

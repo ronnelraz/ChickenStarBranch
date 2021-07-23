@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     app:cardCornerRadius="10dp"
     app:rippleColor="@color/black"
     android:id="@+id/card"

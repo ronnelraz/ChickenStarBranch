@@ -32,6 +32,7 @@ import com.charoenpokhandfoodph.connection.con_customer_info;
 import com.charoenpokhandfoodph.connection.con_orderviewlist;
 import com.charoenpokhandfoodph.connection.con_deliver_order;
 import com.charoenpokhandfoodph.connection.con_process_order;
+import com.charoenpokhandfoodph.connection.con_reject_order;
 import com.charoenpokhandfoodph.modal.order_view_list;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -275,7 +276,7 @@ public class ViewOrder extends AppCompatActivity {
         });
     }
 
-    public void reject(View view) {
+    public void reject(View v) {
 
         new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Are you sure?")
@@ -285,6 +286,47 @@ public class ViewOrder extends AppCompatActivity {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
+                        function.getInstance(v.getContext()).Preloader(v.getContext());
+                        Response.Listener<String> response = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    boolean success = jsonResponse.getBoolean("success");
+
+                                    if(success){
+
+                                        getInstance(v.getContext()).alertDialog.dismiss();
+                                        complete.setText("Completed");
+                                        complete.setBackgroundColor(Color.parseColor("#4CAF50"));
+                                        complete.setTextColor(Color.parseColor("#ffffff"));
+                                        complete.setIconResource(R.drawable.icons8_ok);
+                                        complete.setIconTint(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                                        function.intent(Home.class,v.getContext());
+                                        function.animIntent(v.getContext(),config.rtl);
+
+                                    }
+                                    else{
+                                        getInstance(v.getContext()).alertDialog.dismiss();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        Response.ErrorListener errorListener = new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        };
+                        con_reject_order get = new con_reject_order(stc_transctionNumber,stc_customer_number,response,errorListener);
+                        get.setRetryPolicy(new DefaultRetryPolicy(
+                                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                        queue.add(get);
                     }
                 })
                 .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {

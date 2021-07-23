@@ -103,7 +103,16 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
         holder.qty.setOnValueChangedListener((view, value) -> {
 
             Double newQty = getData.getPromotion_status().equals("0") ? Double.parseDouble(getData.getPrice()) * value : Double.parseDouble(getData.getNewprice()) * value;
-            qty(view.getContext(), getData.getOrder_id(),String.valueOf(newQty),String.valueOf(value));
+            if(value > Integer.valueOf(getData.getQty())){
+//                qty(view.getContext(), getData.getOrder_id(),String.valueOf(newQty),String.valueOf(value));
+//                function.toast(view.getContext(),"add");
+                qty(view.getContext(), getData.getOrder_id(),String.valueOf(newQty),String.valueOf(value),"add");
+
+            }
+            else{
+//                function.toast(view.getContext(),"minus");
+                qty(view.getContext(), getData.getOrder_id(),String.valueOf(newQty),String.valueOf(value),"minus");
+            }
         });
 
         holder.cancelitem.setOnClickListener(v -> {
@@ -112,10 +121,11 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
 
             new SweetAlertDialog(v.getContext(), SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("Are you sure?")
-                    .setContentText("you want to Cancel " + getData.getName() + "?")
+                    .setContentText("you want to cancel " + getData.getName() + "?")
                     .setConfirmText("Yes")
                     .setConfirmClickListener(sDialog -> {
-
+                        sDialog.dismissWithAnimation();
+                        function.getInstance(v.getContext()).Preloader(v.getContext());
                         if(getItemCount() == 1){
 
                             Response.Listener<String> response = response1 -> {
@@ -125,8 +135,8 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
 
 
                                 if(success){
+                                   getInstance(v.getContext()).alertDialog.dismiss();
                                     ViewOrder.loadData(ViewOrder.stc_user_id,ViewOrder.stc_tid,v.getContext());
-                                    sDialog.dismissWithAnimation();
                                     updateTransaction(v.getContext(),ViewOrder.stc_transctionNumber);
                                 }
                                 else{
@@ -154,8 +164,8 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
 
 
                                     if(success){
+                                        getInstance(v.getContext()).alertDialog.dismiss();
                                         ViewOrder.loadData(ViewOrder.stc_user_id,ViewOrder.stc_tid,v.getContext());
-                                        sDialog.dismissWithAnimation();
                                     }
                                     else{
 
@@ -213,7 +223,7 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
     }
 
 
-    protected  void qty(Context context, String id,String total,String qty){
+    protected  void qty(Context context, String id,String total,String qty,String type){
         Response.Listener<String> response = response1 -> {
             try {
                 JSONObject jsonResponse = new JSONObject(response1);
@@ -232,7 +242,7 @@ public class OrderViewListAdapter extends RecyclerView.Adapter<OrderViewListAdap
             }
         };
 
-        con_updateQty get = new con_updateQty(id,total,qty,response,null);
+        con_updateQty get = new con_updateQty(id,total,qty,type,response,null);
         get.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

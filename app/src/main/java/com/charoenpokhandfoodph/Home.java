@@ -248,7 +248,7 @@ public class Home extends AppCompatActivity {
                                 Log.d("notify","webhook");
                                 virateme();
                                 order.loadData(getApplicationContext());
-                                function.notificationAlert(Home.this,"You Received new Order",R.drawable.onlineshop2,"#2ecc71");
+                                function.notificationAlert(Home.this,"You Received new Order",R.drawable.bg,"#2ecc71");
                             }
 
                         }

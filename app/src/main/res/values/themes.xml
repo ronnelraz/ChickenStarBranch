@@ -11,4 +11,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
     </style>
+
+
+    <style name="picker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>
