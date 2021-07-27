@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -27,9 +32,12 @@ import com.charoenpokhandfoodph.adapter.OrderViewListAdapter;
 import com.charoenpokhandfoodph.connection.con_customer_info;
 import com.charoenpokhandfoodph.connection.con_customer_list;
 import com.charoenpokhandfoodph.connection.con_orderviewlist;
+import com.charoenpokhandfoodph.connection.con_track_order;
 import com.charoenpokhandfoodph.modal.customer_view_list;
 import com.charoenpokhandfoodph.modal.order_view_list;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONArray;
@@ -60,6 +68,7 @@ public class Customer_order_view extends AppCompatActivity {
     private static TextView SubTotal,km,DeliveryFee,grandtotal;
     private static Boolean ismeron = false;
     private static String Remarks;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +105,13 @@ public class Customer_order_view extends AppCompatActivity {
 
         status = findViewById(R.id.status);
         if(stc_status.equals("DONE")){
-            status.setBackgroundColor(Color.parseColor("#2ecc71"));
+            status.setBackgroundColor(Color.parseColor("#27ae60"));
+            status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#27ae60")));
             status.setText("ORDER STATUS : COMPLETED");
         }
         else{
             status.setBackgroundColor(Color.parseColor("#e74c3c"));
+            status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e74c3c")));
             status.setText("ORDER STATUS : CANCELLED");
         }
 
@@ -289,7 +300,8 @@ public class Customer_order_view extends AppCompatActivity {
                 return true;
 
             case R.id.track_order:
-                function.toast(this,"hello world");
+                    trackOrder();
+                break;
 
             case R.id.order_info:
                 String getinstruction = Remarks.isEmpty() ? "No Special Instruction" : Remarks;
@@ -300,6 +312,7 @@ public class Customer_order_view extends AppCompatActivity {
                        .showCancelButton(false)
                        .showCancelButton(false)
                        .show();
+               break;
             }
 
 
@@ -307,6 +320,115 @@ public class Customer_order_view extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    protected void trackOrder(){
+
+        Response.Listener<String> response = response1 -> {
+            try {
+                JSONObject jsonResponse = new JSONObject(response1);
+                boolean success = jsonResponse.getBoolean("success");
+                JSONArray array = jsonResponse.getJSONArray("data");
+
+                if(success){
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+
+                        View view = getLayoutInflater().inflate(R.layout.bottomsheet_track_order,null);
+                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this,R.style.BottomSheetDialog);
+
+
+                        LinearLayout linearLayout = view.findViewById(R.id.root);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayout.getLayoutParams();
+                        params.height = getScreenHeight();
+                        linearLayout.setLayoutParams(params);
+
+
+                        MaterialButton close = view.findViewById(R.id.close);
+                        close.setOnClickListener(v -> {
+                            bottomSheetDialog.dismiss();
+                        });
+
+                        TextView order_completed = view.findViewById(R.id.order_completed);
+                        ImageView status_icon_complete = view.findViewById(R.id.status_icon_complete);
+                        ImageView complete_icon = view.findViewById(R.id.complete_icon);
+                        TextView complete_status = view.findViewById(R.id.complete_status);
+
+                        if(stc_status.equals("DONE")){
+                            View v2 = view.findViewById(R.id.v2);
+                            View v3 = view.findViewById(R.id.v3);
+                            View v4 = view.findViewById(R.id.v4);
+                            v2.setVisibility(View.VISIBLE);
+                            v3.setVisibility(View.VISIBLE);
+                            v4.setVisibility(View.VISIBLE);
+                            status_icon_complete.setImageResource(R.drawable.icons8_ok_2);
+                            order_completed.setText(object.getString("complete_time"));
+                            complete_status.setText("Order Completed");
+                        }
+                        else{
+                            View v2 = view.findViewById(R.id.v2);
+                            View v3 = view.findViewById(R.id.v3);
+                            View v4 = view.findViewById(R.id.v4);
+                            v2.setVisibility(View.GONE);
+                            v3.setVisibility(View.GONE);
+                            v4.setVisibility(View.GONE);
+
+                            RelativeLayout accept_container = view.findViewById(R.id.accept_container);
+                            RelativeLayout prepare_container = view.findViewById(R.id.prepare_container);
+                            RelativeLayout deliver_container = view.findViewById(R.id.deliver_container);
+
+                            accept_container.setVisibility(View.GONE);
+                            prepare_container.setVisibility(View.GONE);
+                            deliver_container.setVisibility(View.GONE);
+
+                            status_icon_complete.setImageResource(R.drawable.icons8_cancel_4);
+                            complete_icon.setImageResource(R.drawable.icons8_fail);
+                            order_completed.setText(object.getString("cancel"));
+                            complete_status.setText("Order Cancelled");
+
+                        }
+
+                        TextView trasactionNumber = view.findViewById(R.id.transactionNumber);
+                        trasactionNumber.setText("Order Number : "+ stc_tid);
+                        TextView ordersubmitted = view.findViewById(R.id.ordersubmitted);
+                        ordersubmitted.setText(object.getString("order_time"));
+                        TextView orderaccepted = view.findViewById(R.id.orderaccepted);
+                        orderaccepted.setText(object.getString("accept_time"));
+                        TextView order_prepare = view.findViewById(R.id.order_prepare);
+                        order_prepare.setText(object.getString("process_prepare_time"));
+                        TextView order_deliver = view.findViewById(R.id.order_deliver);
+                        order_deliver.setText(object.getString("deliver_time"));
+
+
+                        bottomSheetDialog.setContentView(view);
+                        bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetDialog.show();
+
+                        //end
+                    }
+
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        };
+        Response.ErrorListener errorListener = error -> {
+
+        };
+        con_track_order get = new con_track_order(stc_tid,stc_status,response,errorListener);
+        get.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(get);
+
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
 
 
     @Override

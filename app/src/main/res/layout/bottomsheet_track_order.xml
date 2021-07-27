@@ -1,7 +1,406 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:id="@+id/container"
+    app:layout_behavior="Bott"
+    android:background="@color/black">
+
+
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/icons8_back"
+                app:backgroundTint="@color/black"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="35dp"
+                android:id="@+id/close"/>
+
+            <ImageView
+                android:layout_marginTop="-70dp"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Chicken Star Track Order"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="from our store to your door"
+                android:gravity="center"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/transactionNumber"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Order Number : T21072300028"
+                android:gravity="center"
+                android:textColor="#FFEB3B"/>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:paddingBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:background="@drawable/shape"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="140dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icons8_ok_2"/>
+
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shop"/>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:background="#FF9800"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Order Submitted"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <TextView
+                            android:id="@+id/ordersubmitted"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="date 00, 0000 00:00:A"
+                            android:gravity="center"
+                            android:textColor="#ffffff"/>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:background="#fff"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:id="@+id/accept_container"
+                    android:background="@drawable/shape"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:layout_width="140dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icons8_ok_2"/>
+
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/icons8_order_accepted"/>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:background="#FF9800"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Order Accepted"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <TextView
+                            android:id="@+id/orderaccepted"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="date 00, 0000 00:00:A"
+                            android:gravity="center"
+                            android:textColor="#ffffff"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/v2"
+                    android:background="#fff"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:id="@+id/prepare_container"
+                    android:background="@drawable/shape"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:layout_width="140dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icons8_ok_2"/>
+
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/order_prepared"/>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:background="#FF9800"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Order Prepared"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <TextView
+                            android:id="@+id/order_prepare"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="date 00, 0000 00:00:A"
+                            android:gravity="center"
+                            android:textColor="#ffffff"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/v3"
+                    android:background="#fff"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:id="@+id/deliver_container"
+                    android:background="@drawable/shape"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:layout_width="140dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icons8_ok_2"/>
+
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/rider"/>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:background="#FF9800"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Order Delivered"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <TextView
+                            android:id="@+id/order_deliver"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="date 00, 0000 00:00:A"
+                            android:gravity="center"
+                            android:textColor="#ffffff"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/v4"
+                    android:background="#fff"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:background="@drawable/shape"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:layout_width="140dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/status_icon_complete"
+                        android:layout_margin="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        tools:background="@drawable/icons8_ok_2"/>
+
+                    <ImageView
+                        android:id="@+id/complete_icon"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/order_completed"/>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:background="#FF9800"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/complete_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Order Complete"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <TextView
+                            android:id="@+id/order_completed"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="date 00, 0000 00:00:A"
+                            android:gravity="center"
+                            android:textColor="#ffffff"/>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+
+
+
+
+        </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:background="@drawable/right_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:riv_corner_radius="10dp"
+            tools:src="@drawable/sample_category"/>
+
+
+        <TextView
+            android:id="@+id/categoryname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Sample Category name"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="120dp"
+            android:layout_marginRight="40dp"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icons8_forward"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

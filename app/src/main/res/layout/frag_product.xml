@@ -1,11 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
-    <TextView
+   <androidx.cardview.widget.CardView
+       android:id="@+id/headercontroller"
+       android:layout_marginTop="-15dp"
+       app:cardCornerRadius="20dp"
+       app:cardBackgroundColor="@color/button_text_color"
+       android:layout_width="match_parent"
+       app:cardElevation="4dp"
+       app:cardMaxElevation="4dp"
+       android:layout_height="wrap_content">
+
+       <LinearLayout
+           android:layout_marginBottom="15dp"
+           android:layout_marginTop="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <TextView
+               android:textStyle="bold"
+               android:drawablePadding="5dp"
+               android:gravity="center|left"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="10dp"
+               android:drawableLeft="@drawable/icons8_list_1"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Search Category"/>
+
+           <com.google.android.material.textfield.TextInputEditText
+               android:layout_marginTop="10dp"
+               android:inputType="text"
+               android:singleLine="true"
+               android:drawableLeft="@drawable/icons8_search_1"
+               android:paddingLeft="10dp"
+               android:drawableTint="@color/black"
+               android:drawablePadding="5dp"
+               android:hint="Category"
+               android:textSize="14dp"
+               android:textColorHint="@color/gray_btn_bg_pressed_color"
+               android:layout_marginRight="20dp"
+               android:layout_marginLeft="20dp"
+               android:layout_width="match_parent"
+               android:layout_height="40dp"
+               android:id="@+id/search"
+               android:background="@drawable/rounded_view"/>
+       </LinearLayout>
+
+
+   </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="product"/>
+        android:id="@+id/data"
+       tools:listitem="@layout/list_category"
+        tools:itemCount="2"
+        android:layout_below="@+id/headercontroller"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/icons8_plus_math"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="4dp"
+        app:rippleColor="@color/black"
+        app:fabSize="auto"
+        app:tint="@android:color/white"
+        android:id="@+id/addnewItem"/>
+
+</RelativeLayout>

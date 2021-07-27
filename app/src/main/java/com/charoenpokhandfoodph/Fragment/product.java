@@ -8,12 +8,23 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.charoenpokhandfoodph.R;
+import com.charoenpokhandfoodph.modal.category_view_list;
+
+import java.util.ArrayList;
 
 public class product extends Fragment {
 
+    public ArrayList<category_view_list> dataSet = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
-        return inflater.inflate(R.layout.frag_product, parent, false);
+        View view =  inflater.inflate(R.layout.frag_completed,parent,false);
+
+        return view;
+    }
+
+
+    public void setCategoryList(){
+        dataSet.add(new category_view_list("1","test","product/rr.jpg"));
     }
 }

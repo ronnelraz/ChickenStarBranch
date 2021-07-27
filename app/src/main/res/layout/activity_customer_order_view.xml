@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:padding="10dp"
-        android:background="#2ecc71"
+        android:background="#4CAF50"
         android:textStyle="bold"
         android:textColor="@color/white"
         tools:text="ORDER STATUS : CANCELLED"/>
@@ -59,7 +59,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:textAlignment="textEnd"
                 android:id="@+id/km"
                 android:layout_width="0dp"
@@ -92,7 +92,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:textAlignment="textEnd"
                 android:id="@+id/SubTotal"
                 android:layout_width="0dp"
@@ -125,7 +125,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/material_blue_grey_80"
                 android:textAlignment="textEnd"
                 android:id="@+id/DeliveryFee"
                 android:layout_width="0dp"
@@ -163,7 +163,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="textEnd"
                 android:id="@+id/grandtotal"
                 android:layout_width="0dp"
@@ -186,6 +186,7 @@
                 android:layout_height="wrap_content"
                 android:text="P0.00"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         </LinearLayout>

@@ -51,9 +51,9 @@ dependencies {
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
 
 
-    def lifecycle_version = '2.3.1'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    def lifecycle_version = '2.3.1'
+//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation 'com.github.tapadoo:alerter:7.1.0'
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 
@@ -97,6 +97,8 @@ dependencies {
     implementation 'hari.bounceview:bounceview:0.1.0'// bounce animation
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-
+    def lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
 }
