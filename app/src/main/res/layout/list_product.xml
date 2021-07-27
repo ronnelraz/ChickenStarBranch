@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="20dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar android:id="@+id/loading"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="60dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"/>
+
+
+
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/sample_category"
+            android:layout_width="match_parent"
+            app:riv_corner_radius_top_left="20dp"
+            app:riv_corner_radius_top_right="20dp"
+            android:layout_height="180dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/bottom"/>
+
+
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-15dp"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:background="@drawable/ribbon_mark"
+            tools:text="100%\nOFF"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:paddingBottom="30dp"/>
+
+
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:id="@+id/productname"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Product Name samsamsam"/>
+
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/productname"
+            android:id="@+id/containeroption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:drawablePadding="5dp"
+                android:gravity="center|left"
+                android:id="@+id/status"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="30dp"
+                tools:text="Available"
+                android:textSize="15sp"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="#327535"
+                android:drawableLeft="@drawable/visible"
+                android:layout_gravity="left"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/toggle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                app:useMaterialThemeColors="true"
+                app:trackTint="@color/material_blue_grey_80"
+                android:layout_gravity="right"/>
+
+        </LinearLayout>
+
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/containeroption"
+            app:backGroundColor="@color/white"
+            app:textColor="@color/black"
+            app:initialNumber="0"
+            app:textSize="4sp"
+            android:gravity="center"
+            android:id="@+id/qty"/>
+
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

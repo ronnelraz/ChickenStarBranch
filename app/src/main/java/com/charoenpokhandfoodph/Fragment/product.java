@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -45,12 +46,14 @@ public class product extends Fragment {
     public static RecyclerView recyclerView;
     public static RecyclerView.Adapter adapter;
     public static List<category_view_list> list;
+    public static SwipeRefreshLayout swipe;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.frag_product,parent,false);
 
+        swipe = view.findViewById(R.id.swipe);
         recyclerView = view.findViewById(R.id.data);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(999999999);
@@ -61,10 +64,25 @@ public class product extends Fragment {
         recyclerView.setAdapter(adapter);
 
         search = view.findViewById(R.id.search);
+
+        swipe.setOnRefreshListener(() -> {
+            list.clear();
+            onLoadComplete();
+        });
+
+        swipe.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         ActionsTop();
         loadData();
         return view;
 
+    }
+
+    public void onLoadComplete(){
+        loadData();
+        swipe.setRefreshing(false);
     }
 
     protected void ActionsTop(){

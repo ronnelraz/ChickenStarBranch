@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:id="@+id/container"
+    app:layout_behavior="Bott"
+    android:background="@color/button_text_color">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/headercontroller"
+            android:layout_marginTop="-15dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/button_text_color"
+            android:layout_width="match_parent"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="4dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center|top"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/icons8_horizontal_line"
+                android:backgroundTint="@color/black"/>
+
+            <LinearLayout
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:drawablePadding="5dp"
+                    android:gravity="center|left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/icons8_list_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search Product"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_marginTop="10dp"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:drawableLeft="@drawable/icons8_search_1"
+                    android:paddingLeft="10dp"
+                    android:drawableTint="@color/black"
+                    android:drawablePadding="5dp"
+                    android:hint="Product"
+                    android:textSize="14dp"
+                    android:textColorHint="@color/gray_btn_bg_pressed_color"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/search"
+                    android:background="@drawable/rounded_view"/>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_below="@+id/headercontroller"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/swipe"
+            android:layout_marginTop="-10dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/data"
+                tools:listitem="@layout/list_product"
+                tools:itemCount="2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

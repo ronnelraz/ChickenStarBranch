@@ -56,13 +56,21 @@
 
    </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/headercontroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/data"
-       tools:listitem="@layout/list_category"
-        tools:itemCount="2"
-        android:layout_below="@+id/headercontroller"/>
+        android:id="@+id/swipe"
+        android:layout_marginTop="-10dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/data"
+            tools:listitem="@layout/list_category"
+            tools:itemCount="2"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

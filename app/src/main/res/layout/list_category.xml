@@ -6,6 +6,7 @@
     android:layout_margin="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
+    android:id="@+id/card"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="10dp">
 
@@ -15,10 +16,21 @@
         android:layout_height="match_parent">
 
 
+        <ProgressBar android:id="@+id/loading"
+            android:progressBackgroundTint="@color/colorPrimaryDark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:riv_corner_radius="10dp"
+            android:id="@+id/img"
             tools:src="@drawable/sample_category"/>
 
 
