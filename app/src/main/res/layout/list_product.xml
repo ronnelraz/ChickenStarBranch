@@ -41,8 +41,26 @@
             android:background="@drawable/bottom"/>
 
 
+        <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_marginTop="140dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_days"
+            tools:text="100 days left"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:id="@+id/days"/>
 
         <TextView
+            android:id="@+id/discount"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_marginTop="-15dp"
             android:layout_width="80dp"
@@ -84,7 +102,7 @@
                 android:gravity="center|left"
                 android:id="@+id/status"
                 android:layout_width="0dp"
-                android:layout_weight="2.5"
+                android:layout_weight="2"
                 android:layout_height="30dp"
                 tools:text="Available"
                 android:textSize="15sp"
@@ -93,13 +111,22 @@
                 android:drawableLeft="@drawable/visible"
                 android:layout_gravity="left"/>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.suke.widget.SwitchButton
                 android:id="@+id/toggle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="30dp"
-                app:useMaterialThemeColors="true"
-                app:trackTint="@color/material_blue_grey_80"
+                app:sb_background="@color/button_text_color"
+                app:sb_button_color="@color/white"
+                app:sb_enable_effect="true"
+                app:sb_shadow_color="@color/black"
+                app:sb_show_indicator="true"
+                app:sb_uncheck_color="@color/error_stroke_color"
+                app:sb_uncheckcircle_color="@color/colorPrimaryDark"
+                app:sb_checked_color="#4CAF50"
+                app:sb_checked="true"
+                android:checked="true"
+                app:sb_checkline_color="@color/button_text_color"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -111,7 +138,7 @@
             app:backGroundColor="@color/white"
             app:textColor="@color/black"
             app:initialNumber="0"
-            app:textSize="4sp"
+            app:textSize="8sp"
             android:gravity="center"
             android:id="@+id/qty"/>
 

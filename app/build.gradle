@@ -101,6 +101,7 @@ dependencies {
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
     implementation 'hari.bounceview:bounceview:0.1.0'// bounce animation
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'biz.laenger.android:vpbs:0.0.6'
 
 
 

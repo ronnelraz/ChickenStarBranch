@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.charoenpokhandfoodph.DisallowInterceptView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:id="@+id/container"
-    app:layout_behavior="Bott"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:background="@color/button_text_color">
+
 
     <LinearLayout
         android:id="@+id/root"
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center|top"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -40,6 +41,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:text="Back"
+                    app:icon="@drawable/icons8_back"
+                    app:iconTint="@color/black"
+                    app:iconGravity="textStart"
+                    app:iconSize="30dp"
+                    android:textColor="@color/black"
+                    android:id="@+id/back"
+                    app:cornerRadius="20dp"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -76,28 +92,31 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_below="@+id/headercontroller"
+            android:layout_marginBottom="25dp"
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/swipe"
+            android:layout_below="@+id/headercontroller"
             android:layout_marginTop="-10dp">
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/data"
-                tools:listitem="@layout/list_product"
-                tools:itemCount="2"
+                android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"/>
+                app:spanCount="2"
+                tools:itemCount="5"
+                tools:listitem="@layout/list_product" />
+
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
-
-
 
 
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+
+</com.charoenpokhandfoodph.DisallowInterceptView>
