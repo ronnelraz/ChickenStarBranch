@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.charoenpokhandfoodph.Customer_order_view;
 import com.charoenpokhandfoodph.R;
 import com.charoenpokhandfoodph.config;
+import com.charoenpokhandfoodph.connection.con_update_product;
 import com.charoenpokhandfoodph.connection.update_product_stocks;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.completedlist;
@@ -89,7 +91,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
                 String value = String.valueOf(newValue);
                 if(newValue == 0){
 //                        holder.stocks.setEnabled(false);
-//                        updatestatus(getData.id,"N",context);
+                        updatestatus(getData.id,"N",view.getContext());
                     holder.switchButton.setChecked(false);
                     holder.status.setTextColor(Color.parseColor("#c0392b"));
                     holder.status.setText("Not Available");
@@ -104,7 +106,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean success = jsonObject.getBoolean("success");
                                 if(success){
-                                    function.toast(view.getContext(),"Update : " + value);
+//                                    function.toast(view.getContext(),"Update : " + value);
                                 }
 
                             }
@@ -123,8 +125,6 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     RequestQueue queue = Volley.newRequestQueue(view.getContext());
                     queue.add(get);
-
-                    function.toast(view.getContext(),getData.getId() + " " + value);
             });
 
 
@@ -133,14 +133,14 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if(isChecked){
 //                    function.toast(getData.getId());
-//                    updatestatus(getData.id,"Y",view.getContext());
+                    updatestatus(getData.id,"Y",view.getContext());
                     holder.status.setTextColor(Color.parseColor("#27ae60"));
                     holder.status.setText("Available");
                     holder.status.setCompoundDrawablesWithIntrinsicBounds( R.drawable.visible, 0, 0, 0);
                 }
                 else{
 //                    function.toast(getData.getId());
-//                    updatestatus(getData.id,"N",view.getContext());
+                    updatestatus(getData.id,"N",view.getContext());
                     holder.status.setTextColor(Color.parseColor("#c0392b"));
                     holder.status.setText("Not Available");
                     holder.status.setCompoundDrawablesWithIntrinsicBounds( R.drawable.hide, 0, 0, 0);
@@ -189,35 +189,29 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
     }
 
     public void updatestatus(String id,String status,Context context){
-//        Response.Listener<String> response = new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    boolean success = jsonObject.getBoolean("success");
-//                    if(success){
-//
-//                    }
-//
-//                }
-//                catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//        Response.ErrorListener errorListener = new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        };
-//        update_product_status get = new update_product_status(id,status,response,errorListener);//function.getInstance(this).getDeviceToken()
-//        get.setRetryPolicy(new DefaultRetryPolicy(
-//                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        RequestQueue queue = Volley.newRequestQueue(context);
-//        queue.add(get);
+        Response.Listener<String> response = response1 -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response1);
+                boolean success = jsonObject.getBoolean("success");
+                if(success){
+                    function.noti(context,"Product","Update status Successfully!",R.drawable.icons8_ok_2);
+                }
+
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+        };
+        Response.ErrorListener errorListener = error -> {
+
+        };
+        con_update_product get = new con_update_product(id,status,response,errorListener);//function.getInstance(this).getDeviceToken()
+        get.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(get);
         //end
     }
 
