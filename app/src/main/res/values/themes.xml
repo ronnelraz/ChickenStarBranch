@@ -17,6 +17,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+
     <!--Realize the rounded corner effect of BottomSheetDialog-->
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>

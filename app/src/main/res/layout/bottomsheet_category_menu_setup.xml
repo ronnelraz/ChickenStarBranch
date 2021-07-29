@@ -35,6 +35,21 @@
                 android:background="@drawable/icons8_horizontal_line"
                 android:backgroundTint="@color/black"/>
 
+
+            <com.google.android.material.button.MaterialButton
+                android:enabled="false"
+                android:id="@+id/save"
+                app:cornerRadius="20dp"
+                android:layout_marginRight="10dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="right|top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/icons8_save"
+                app:iconGravity="textStart"
+                android:text="Save"/>
+
             <LinearLayout
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
@@ -56,6 +71,20 @@
                     android:textColor="@color/black"
                     android:id="@+id/back"
                     app:cornerRadius="20dp"/>
+
+
+                <TextView
+                    android:textColor="@color/colorPrimaryDark"
+                    android:id="@+id/categoryname"
+                    android:textStyle="bold"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    tools:text="Category Name"/>
 
                 <TextView
                     android:textStyle="bold"
@@ -86,6 +115,46 @@
                     android:layout_height="40dp"
                     android:id="@+id/search"
                     android:background="@drawable/rounded_view"/>
+
+                <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:gravity="center|left"
+                        android:id="@+id/selectedItem"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:text="Selected Item : 0"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        app:cornerRadius="20dp"
+                        android:id="@+id/checkall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Check All"
+                        android:textSize="12sp"
+                        android:layout_gravity="right"
+                        app:icon="@drawable/icons8_round"
+                        android:textColor="@color/black"
+                        app:iconTint="@android:color/transparent"
+                        app:iconTintMode="add"
+                        app:iconGravity="textStart"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
 
@@ -106,8 +175,8 @@
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
-                tools:itemCount="2"
-                tools:listitem="@layout/list_product" />
+                tools:itemCount="5"
+                tools:listitem="@layout/list_item_product_setup" />
 
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

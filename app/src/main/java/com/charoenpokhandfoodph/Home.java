@@ -21,6 +21,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -38,6 +39,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.charoenpokhandfoodph.Fragment.Addproduct;
 import com.charoenpokhandfoodph.Fragment.account;
 import com.charoenpokhandfoodph.Fragment.completed;
 import com.charoenpokhandfoodph.Fragment.order;
@@ -65,6 +67,8 @@ import static maes.tech.intentanim.CustomIntent.customType;
 public class Home extends AppCompatActivity {
 
     TextView textCartItemCount;
+    boolean doubleBackToExitPressedOnce = false;
+
 
 
     private DrawerLayout drawerLayout;
@@ -194,6 +198,16 @@ public class Home extends AppCompatActivity {
 
 
 
+    public void newproduct(){
+        FragmentActivity(new Addproduct());
+        function.setActivity("4");
+    }
+
+
+    public void backproduct(){
+        FragmentActivity(new product());
+        function.setActivity("3");
+    }
 
 
     @Override
@@ -306,11 +320,23 @@ public class Home extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
            drawerLayout.closeDrawer(GravityCompat.START);
        }
+        if(function.getActivity().equals("4")){
+            FragmentActivity(new product());
+        }
        else{
-           super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
+//           super.onBackPressed();
        }
     }
 

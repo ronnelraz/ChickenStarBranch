@@ -1,7 +1,5 @@
 package com.charoenpokhandfoodph.Fragment;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,50 +19,50 @@ import com.android.volley.toolbox.Volley;
 import com.charoenpokhandfoodph.Home;
 import com.charoenpokhandfoodph.R;
 import com.charoenpokhandfoodph.adapter.CategoryAdapter;
-import com.charoenpokhandfoodph.adapter.completedAdapter;
+import com.charoenpokhandfoodph.adapter.CategorySetupAdapter;
 import com.charoenpokhandfoodph.connection.con_category;
-import com.charoenpokhandfoodph.connection.con_loadCompletedOrder;
+import com.charoenpokhandfoodph.connection.con_product_category_setup;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.category_view_list;
-import com.charoenpokhandfoodph.modal.completedlist;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textview.MaterialTextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-public class product extends Fragment {
+public class Addproduct extends Fragment {
 
-
-    private static final String TAG = "MainActivity";
     private TextInputEditText search;
     public static RecyclerView recyclerView;
     public static RecyclerView.Adapter adapter;
     public static List<category_view_list> list;
     public static SwipeRefreshLayout swipe;
-    public FloatingActionButton addnewItem;
-
+    public MaterialButton back;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.frag_product,parent,false);
+        View view =  inflater.inflate(R.layout.frag_newproduct,parent,false);
+
+
 
         swipe = view.findViewById(R.id.swipe);
         recyclerView = view.findViewById(R.id.data);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(999999999);
-        addnewItem = view.findViewById(R.id.addnewItem);
 
         list = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CategoryAdapter(list,getActivity());
+        adapter = new CategorySetupAdapter(list,getActivity());
         recyclerView.setAdapter(adapter);
+        back = view.findViewById(R.id.back);
+        back.setOnClickListener(v-> {
+            ((Home)v.getContext()).backproduct();
+            function.setActivity("3");
+        });
 
 
         search = view.findViewById(R.id.search);
@@ -81,13 +79,8 @@ public class product extends Fragment {
         ActionsTop();
         loadData();
 
-        addnewItem.setOnClickListener(v -> {
-            ((Home)v.getContext()).newproduct();
-            function.setActivity("4");
-        });
 
         return view;
-
     }
 
     public void onLoadComplete(){
@@ -150,7 +143,7 @@ public class product extends Fragment {
 
 
                     }
-                    adapter = new CategoryAdapter(list,getActivity());
+                    adapter = new CategorySetupAdapter(list,getActivity());
                     recyclerView.setAdapter(adapter);
                 }
                 else{
@@ -165,7 +158,7 @@ public class product extends Fragment {
         Response.ErrorListener errorListener = error -> {
 
         };
-        con_category get = new con_category(function.getUID(),response,errorListener);
+        con_product_category_setup get = new con_product_category_setup(response,errorListener);
         get.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -173,10 +166,5 @@ public class product extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(get);
     }
-
-
-
-
-
 
 }

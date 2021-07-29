@@ -63,6 +63,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
 
 
         holder.loading.setVisibility(View.VISIBLE);
+        holder.price.setText(config.PESO+function.format_number(Integer.parseInt(getData.getPrice())));
         Picasso.get().load(config.URLIMGPRODUCT + getData.img).into(holder.img, new Callback() {
             @Override
             public void onSuccess() {
@@ -98,33 +99,64 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
                     holder.status.setCompoundDrawablesWithIntrinsicBounds( R.drawable.hide, 0, 0, 0);
                 }
 
+//
 
+                if(newValue < Integer.parseInt(getData.getQty())){
                     Response.Listener<String> response = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                boolean success = jsonObject.getBoolean("success");
-                                if(success){
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success){
 //                                    function.toast(view.getContext(),"Update : " + value);
-                                }
+                            }
 
-                            }
-                            catch (JSONException e){
-                                e.printStackTrace();
-                            }
                         }
-                    };
-                    Response.ErrorListener errorListener = error -> {
+                        catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Response.ErrorListener errorListener = error -> {
 
-                    };
-                    update_product_stocks get = new update_product_stocks(getData.getId(),value,response,errorListener);
-                    get.setRetryPolicy(new DefaultRetryPolicy(
-                            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                    RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                    queue.add(get);
+                };
+                update_product_stocks get = new update_product_stocks(getData.getId(),"minus",response,errorListener);
+                get.setRetryPolicy(new DefaultRetryPolicy(
+                        DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                queue.add(get);
+                }
+                else{
+                    Response.Listener<String> response = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success){
+//                                    function.toast(view.getContext(),"Update : " + value);
+                            }
+
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Response.ErrorListener errorListener = error -> {
+
+                };
+                update_product_stocks get = new update_product_stocks(getData.getId(),"plus",response,errorListener);
+                get.setRetryPolicy(new DefaultRetryPolicy(
+                        DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                queue.add(get);
+                }
             });
 
 
@@ -225,7 +257,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
 
    class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView productname,status,percent,days;
+        public TextView productname,status,percent,days,price;
         public ElegantNumberButton stock;
         public SwitchButton switchButton;
         public ProgressBar loading;
@@ -241,6 +273,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
             days = itemView.findViewById(R.id.days);
             loading = itemView.findViewById(R.id.loading);
             img = itemView.findViewById(R.id.img);
+            price = itemView.findViewById(R.id.price);
 
         }
     }

@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 
 import com.airbnb.lottie.animation.content.Content;
 import com.charoenpokhandfoodph.R;
@@ -22,6 +24,7 @@ import java.text.DecimalFormat;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import hari.bounceview.BounceView;
+
 
 import static maes.tech.intentanim.CustomIntent.customType;
 
@@ -41,6 +44,8 @@ public class function {
     public static final String PASSWORD = "PASSWORd";
     public static final String CONTACT = "CONTACT";
     public static final String COUNTORDER = "0";
+
+    public static String ACTIVITY = "0";
 
 
 
@@ -70,6 +75,21 @@ public class function {
         sharedPreferences = cont.getSharedPreferences(DATA,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString(COUNTORDER,order);
+        editor.apply();
+        return true;
+    }
+
+
+
+    public static String getActivity(){
+        sharedPreferences = cont.getSharedPreferences(DATA, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(ACTIVITY,"0");
+    }
+
+    public static boolean setActivity(String number){
+        sharedPreferences = cont.getSharedPreferences(DATA,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString(ACTIVITY,number);
         editor.apply();
         return true;
     }
@@ -191,7 +211,6 @@ public class function {
                 .show();
 
     }
-
 
 
 

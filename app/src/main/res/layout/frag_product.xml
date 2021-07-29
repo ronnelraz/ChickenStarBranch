@@ -85,6 +85,7 @@
         app:rippleColor="@color/black"
         app:fabSize="auto"
         app:tint="@android:color/white"
+        android:tooltipText="Add new product"
         android:id="@+id/addnewItem"/>
 
 </RelativeLayout>

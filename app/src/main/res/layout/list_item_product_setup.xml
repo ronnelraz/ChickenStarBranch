@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    android:id="@+id/card"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ProgressBar android:id="@+id/loading"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="60dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"/>
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/sample_category"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius_top_left="20dp"
+            app:riv_corner_radius_top_right="20dp"/>
+
+
+        <ImageView
+            android:id="@+id/mark"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icons8_round"/>
+
+        <View
+            android:id="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/bottom"/>
+
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_below="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/productname"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Product Name"/>
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#4CAF50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="P100.00"/>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

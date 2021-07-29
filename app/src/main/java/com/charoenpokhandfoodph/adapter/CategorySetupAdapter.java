@@ -3,25 +3,16 @@ package com.charoenpokhandfoodph.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -29,17 +20,14 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.charoenpokhandfoodph.Customer_order_view;
-import com.charoenpokhandfoodph.Home;
 import com.charoenpokhandfoodph.R;
 import com.charoenpokhandfoodph.config;
-import com.charoenpokhandfoodph.connection.con_category;
 import com.charoenpokhandfoodph.connection.con_category_child;
-import com.charoenpokhandfoodph.connection.con_remove_inv;
+import com.charoenpokhandfoodph.connection.con_load_category_item_setup;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.category_view_list;
-import com.charoenpokhandfoodph.modal.completedlist;
 import com.charoenpokhandfoodph.modal.product_list;
+import com.charoenpokhandfoodph.modal.product_setup_list;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -56,21 +44,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-import hari.bounceview.BounceView;
 
-
-
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdapter.ViewHolder> {
 
     Context mContext;
     List<category_view_list> newsList;
     private BottomSheetBehavior bottomSheetBehavior;
     private RecyclerView.Adapter adapter;
-    private List<product_list> list;
+    private List<product_setup_list> list;
 
+    private boolean isclickall = false;
 
-    public CategoryAdapter(List<category_view_list> list, Context context) {
+    public CategorySetupAdapter(List<category_view_list> list, Context context) {
         super();
         this.newsList = list;
         this.mContext = context;
@@ -105,7 +90,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         });
 
         holder.card.setOnClickListener(vheader -> {
-            View view = LayoutInflater.from(vheader.getContext()).inflate(R.layout.bottomsheet_category_menu,null);
+            View view = LayoutInflater.from(vheader.getContext()).inflate(R.layout.bottomsheet_category_menu_setup,null);
 
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(vheader.getContext(),R.style.BottomSheetDialog);
 
@@ -115,13 +100,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             params.height = getScreenHeight();
             linearLayout.setLayoutParams(params);
 
-            String getuid = function.getUID();
-            String getcateid = getData.getId();
+
 
             RecyclerView rviewbottom = view.findViewById(R.id.data);
             TextInputEditText search = view.findViewById(R.id.search);
             SwipeRefreshLayout swipe = view.findViewById(R.id.swipe);
             MaterialButton back = view.findViewById(R.id.back);
+            MaterialButton save = view.findViewById(R.id.save);
+            MaterialButton checkall = view.findViewById(R.id.checkall);
+
+
+
+
+
+            TextView categoryname = view.findViewById(R.id.categoryname);
+            categoryname.setText("Category : " +getData.getName());
+            TextView selectedItem = view.findViewById(R.id.selectedItem);
+
 
 
             rviewbottom.setOnTouchListener((v, event) -> {
@@ -135,7 +130,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             list = new ArrayList<>();
             rviewbottom.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-            adapter = new productAdapter(list,view.getContext());
+            adapter = new productSetupAdapter(list,view.getContext(),selectedItem,save);
             rviewbottom.setAdapter(adapter);
 
             back.setOnClickListener(v -> {
@@ -144,9 +139,50 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             });
 
 
+             checkall.setOnClickListener(v -> {
+
+                 List<product_setup_list> selectedItemlist = new productSetupAdapter(list,view.getContext(),selectedItem,save).getSelected();
+
+
+                 if(isclickall){
+                    isclickall = false;
+                    checkall.setIconResource(R.drawable.icons8_round);
+                    checkall.setText("check all");
+                     for(int i = 0; i <selectedItemlist.size(); i++){
+                         selectedItemlist.get(i).isSelected = true;
+                         selectedItemlist.get(i).setSelected(true);
+                         adapter.notifyDataSetChanged();
+                     }
+
+                }
+                else{
+                    isclickall = true;
+                    checkall.setIconResource(R.drawable.icons8_ok_4);
+                    checkall.setText("uncheck");
+                     for(int i = 0; i <selectedItemlist.size(); i++){
+                         selectedItemlist.get(i).isSelected = false;
+                         selectedItemlist.get(i).setSelected(false);
+                         adapter.notifyDataSetChanged();
+                     }
+                }
+            });
+
+
+             save.setOnClickListener(v -> {
+                List<product_setup_list> selectedItemlist = new productSetupAdapter(list,view.getContext(),selectedItem,save).getSelected();
+                for(int i = 0; i <selectedItemlist.size(); i++){
+                    if(i == 0){
+                        function.toast(v.getContext(),selectedItemlist.get(i).getName());
+                    }
+                    else{
+                        function.toast(v.getContext(),selectedItemlist.get(i).getName());
+                    }
+                }
+            });
+
             swipe.setOnRefreshListener(() -> {
                 list.clear();
-                loadData(view.getContext(),rviewbottom,getuid,getcateid);
+                loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save);
                 swipe.setRefreshing(false);
             });
 
@@ -162,14 +198,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    ArrayList<product_list> newListbottom = new ArrayList<>();
-                    for (product_list sub : list)
+                    ArrayList<product_setup_list> newListbottom = new ArrayList<>();
+                    for (product_setup_list sub : list)
                     {
                         String name = sub.getName().toLowerCase();
                         if(name.contains(s)){
                             newListbottom.add(sub);
                         }
-                        adapter = new productAdapter(newListbottom,view.getContext());
+                        adapter = new productSetupAdapter(newListbottom,view.getContext(),selectedItem,save);
                         rviewbottom.setAdapter(adapter);
 
                     }
@@ -180,7 +216,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
                 }
             });
-            loadData(view.getContext(),rviewbottom,getuid,getcateid);
+            loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save);
 
             bottomSheetDialog.setContentView(view);
             bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
@@ -191,7 +227,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     }
 
-    protected void loadData(Context context,RecyclerView recyclerView,String uid,String cateid){
+    protected void loadData(Context context,RecyclerView recyclerView,String id,TextView textView,MaterialButton save){
         list.clear();
         adapter.notifyDataSetChanged();
         Response.Listener<String> response = response1 -> {
@@ -205,37 +241,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
-                        product_list item = new product_list(
+                        product_setup_list item = new product_setup_list(
                                 object.getString("id"),
                                 object.getString("name"),
                                 object.getString("img"),
-                                object.getString("qty"),
-                                object.getString("status"),
-                                object.getString("percent"),
-                                object.getString("days"),
                                 object.getString("price"),
-                                object.getBoolean("expired")
+                                object.getBoolean("mark"),
+                                false
                         );
 
                         list.add(item);
 
 
                     }
-                    adapter = new productAdapter(list,context);
+                    adapter = new productSetupAdapter(list,context,textView,save);
                     recyclerView.setAdapter(adapter);
                 }
                 else{
-                    new SweetAlertDialog(context,SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            .setTitleText("No Available product to your Inventory")
-                            .showCancelButton(false)
-                            .setCustomImage(R.drawable.bg)
-                            .setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                   sweetAlertDialog.dismissWithAnimation();
-                                }
-                            })
-                            .show();
+//                    function.noti(context,"No Data Available","No Product Found!",R.drawable.bg);
                 }
 
 
@@ -246,7 +269,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Response.ErrorListener errorListener = error -> {
 
         };
-        con_category_child get = new con_category_child(uid,cateid,response,errorListener);
+        con_load_category_item_setup get = new con_load_category_item_setup(id,function.getUID(),response,errorListener);
         get.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

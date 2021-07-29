@@ -1,10 +1,10 @@
 package com.charoenpokhandfoodph.modal;
 
 public class product_list {
-    public String id,name,img,qty,status,percent,days;
+    public String id,name,img,qty,status,percent,days,price;
     public boolean expired;
 
-    public product_list(String id, String name, String img, String qty, String status, String percent, String days, boolean expired) {
+    public product_list(String id, String name, String img, String qty, String status, String percent, String days, String price, boolean expired) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -12,6 +12,7 @@ public class product_list {
         this.status = status;
         this.percent = percent;
         this.days = days;
+        this.price = price;
         this.expired = expired;
     }
 
@@ -69,6 +70,14 @@ public class product_list {
 
     public void setDays(String days) {
         this.days = days;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public boolean isExpired() {
