@@ -234,7 +234,10 @@ public class account extends Fragment {
                  if(ok){
                      bottomSheetDialog.dismiss();
                      data();
-                     function.toast(v.getContext(),"Updated Successfully!");
+                     new SweetAlertDialog(v.getContext(),SweetAlertDialog.SUCCESS_TYPE)
+                             .setTitleText("Changed Successfully!")
+                             .showCancelButton(false)
+                             .show();
 
                  }
 
@@ -257,7 +260,10 @@ public class account extends Fragment {
                     if(ok){
                         bottomSheetDialog.dismiss();
                         data();
-                        function.toast(v.getContext(),"Updated Full Name");
+                        new SweetAlertDialog(v.getContext(),SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Changed Successfully!")
+                                .showCancelButton(false)
+                                .show();
 
                     }
                 }
@@ -300,7 +306,6 @@ public class account extends Fragment {
                              mTimeLeftInMillis = START_TIME_IN_MILLIS;
                              updateCountDownText(timer);
                          });
-
 
                         verify.setOnClickListener(v1 ->{
                             String getcode = code.getOTP();
