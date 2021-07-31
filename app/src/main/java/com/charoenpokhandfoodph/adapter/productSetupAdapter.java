@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -50,14 +51,18 @@ public class productSetupAdapter extends RecyclerView.Adapter<productSetupAdapte
     List<product_setup_list> newsList;
     TextView selectedItem;
     MaterialButton save;
+    SwipeRefreshLayout swipe;
+    ArrayList<product_setup_list> selected = new ArrayList<>();
 
 
-    public productSetupAdapter(List<product_setup_list> list, Context context,TextView selectedItem,MaterialButton save) {
+
+    public productSetupAdapter(List<product_setup_list> list, Context context,TextView selectedItem,MaterialButton save,SwipeRefreshLayout swipe) {
         super();
         this.newsList = list;
         this.mContext = context;
         this.selectedItem = selectedItem;
         this.save = save;
+        this.swipe = swipe;
     }
 
     @Override
@@ -71,7 +76,8 @@ public class productSetupAdapter extends RecyclerView.Adapter<productSetupAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final product_setup_list getData = newsList.get(position);
-
+        if (!getData.isSelected()) holder.mark.setImageResource(R.drawable.icons8_round);
+        else   holder.mark.setImageResource(R.drawable.icons8_ok_4);
 
 
         holder.card.setOnClickListener(v -> {
@@ -79,11 +85,12 @@ public class productSetupAdapter extends RecyclerView.Adapter<productSetupAdapte
             if(getData.isMark()){
                 new SweetAlertDialog(v.getContext(), SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Are you sure?")
-                        .setContentText("You want to remove " + getData.getName() + "to your inventory?")
+                        .setContentText("You want to remove " + getData.getName() + " to your inventory?")
                         .setConfirmText("Yes")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+                                swipe.setRefreshing(true);
 
                                 Response.Listener<String> response = response1 -> {
                                     try {
@@ -92,6 +99,11 @@ public class productSetupAdapter extends RecyclerView.Adapter<productSetupAdapte
                                         if(success){
                                             sDialog.dismissWithAnimation();
                                             holder.mark.setImageResource(R.drawable.icons8_round);
+                                            swipe.setRefreshing(false);
+                                            getData.setSelected(false);
+                                            getData.setMark(false);
+                                            selectedItem.setText("Selected Item : 0");
+                                            notifyDataSetChanged();
                                         }
                                         else{
 
@@ -192,18 +204,7 @@ public class productSetupAdapter extends RecyclerView.Adapter<productSetupAdapte
         return selected;
     }
 
-    public void selectAllItem(boolean isSelectedAll) {
-        try {
-            if (newsList != null) {
-                for (int index = 0; index < newsList.size(); index++) {
-                    newsList.get(index).setSelected(isSelectedAll);
-                }
-            }
-            notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public int getItemCount() {

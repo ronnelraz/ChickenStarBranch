@@ -117,6 +117,7 @@
                     android:background="@drawable/rounded_view"/>
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_width="fill_parent"
@@ -136,6 +137,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:visibility="gone"
                         app:cornerRadius="20dp"
                         android:id="@+id/checkall"
                         android:layout_width="0dp"

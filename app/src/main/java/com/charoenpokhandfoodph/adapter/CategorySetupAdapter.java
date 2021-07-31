@@ -3,6 +3,7 @@ package com.charoenpokhandfoodph.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,11 +23,10 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.charoenpokhandfoodph.R;
 import com.charoenpokhandfoodph.config;
-import com.charoenpokhandfoodph.connection.con_category_child;
+import com.charoenpokhandfoodph.connection.con_add_inv;
 import com.charoenpokhandfoodph.connection.con_load_category_item_setup;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.category_view_list;
-import com.charoenpokhandfoodph.modal.product_list;
 import com.charoenpokhandfoodph.modal.product_setup_list;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -130,7 +130,7 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
 
             list = new ArrayList<>();
             rviewbottom.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-            adapter = new productSetupAdapter(list,view.getContext(),selectedItem,save);
+            adapter = new productSetupAdapter(list,view.getContext(),selectedItem,save,swipe);
             rviewbottom.setAdapter(adapter);
 
             back.setOnClickListener(v -> {
@@ -139,50 +139,52 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
             });
 
 
-             checkall.setOnClickListener(v -> {
 
-                 List<product_setup_list> selectedItemlist = new productSetupAdapter(list,view.getContext(),selectedItem,save).getSelected();
-
-
-                 if(isclickall){
-                    isclickall = false;
-                    checkall.setIconResource(R.drawable.icons8_round);
-                    checkall.setText("check all");
-                     for(int i = 0; i <selectedItemlist.size(); i++){
-                         selectedItemlist.get(i).isSelected = true;
-                         selectedItemlist.get(i).setSelected(true);
-                         adapter.notifyDataSetChanged();
-                     }
-
-                }
-                else{
-                    isclickall = true;
-                    checkall.setIconResource(R.drawable.icons8_ok_4);
-                    checkall.setText("uncheck");
-                     for(int i = 0; i <selectedItemlist.size(); i++){
-                         selectedItemlist.get(i).isSelected = false;
-                         selectedItemlist.get(i).setSelected(false);
-                         adapter.notifyDataSetChanged();
-                     }
-                }
-            });
 
 
              save.setOnClickListener(v -> {
-                List<product_setup_list> selectedItemlist = new productSetupAdapter(list,view.getContext(),selectedItem,save).getSelected();
-                for(int i = 0; i <selectedItemlist.size(); i++){
-                    if(i == 0){
-                        function.toast(v.getContext(),selectedItemlist.get(i).getName());
-                    }
-                    else{
-                        function.toast(v.getContext(),selectedItemlist.get(i).getName());
-                    }
+                List<product_setup_list> selectedItemlist = new productSetupAdapter(list,view.getContext(),selectedItem,save,swipe).getSelected();
+
+
+                 for(int i = 0; i <selectedItemlist.size(); i++){
+                     if(!(i + 1 < selectedItemlist.size())) {
+//                        function.toast(v.getContext(),"last");
+                        addinv(v.getContext(),selectedItemlist.get(i).getId(),save);
+                        swipe.setRefreshing(true);
+                         new Handler().postDelayed(() -> {
+                             swipe.setRefreshing(false);
+                             loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save,swipe);
+                         },3000);
+                     }
+                     else{
+//                         function.toast(v.getContext(),selectedItemlist.get(i).getId() + " " + function.getUID());
+                         addinv(v.getContext(),selectedItemlist.get(i).getId(),save);
+                     }
+
+
+//
+//                    if(i == 0){
+////                        function.toast(v.getContext(),selectedItemlist.get(i).getId() + " " + function.getUID());
+////                        addinv(v.getContext(),selectedItemlist.get(i).getId(),save);
+//                        function.toast(v.getContext(),"last");
+////                        loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save);
+//
+//                    }
+//                    else{
+////
+//                        function.toast(v.getContext(),"more" + i);
+//
+//
+//                    }
                 }
+
+
+
             });
 
             swipe.setOnRefreshListener(() -> {
                 list.clear();
-                loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save);
+                loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save,swipe);
                 swipe.setRefreshing(false);
             });
 
@@ -205,7 +207,7 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
                         if(name.contains(s)){
                             newListbottom.add(sub);
                         }
-                        adapter = new productSetupAdapter(newListbottom,view.getContext(),selectedItem,save);
+                        adapter = new productSetupAdapter(newListbottom,view.getContext(),selectedItem,save,swipe);
                         rviewbottom.setAdapter(adapter);
 
                     }
@@ -216,7 +218,7 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
 
                 }
             });
-            loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save);
+            loadData(view.getContext(),rviewbottom,getData.getId(),selectedItem,save,swipe);
 
             bottomSheetDialog.setContentView(view);
             bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
@@ -227,7 +229,37 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
 
     }
 
-    protected void loadData(Context context,RecyclerView recyclerView,String id,TextView textView,MaterialButton save){
+
+    protected void addinv(Context context,String id,MaterialButton save){
+        Response.Listener<String> response = response1 -> {
+            try {
+                JSONObject jsonResponse = new JSONObject(response1);
+                boolean success = jsonResponse.getBoolean("success");
+                if(success){
+                 save.setEnabled(false);
+                }
+                else{
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        };
+        Response.ErrorListener errorListener = error -> {
+
+        };
+        con_add_inv get = new con_add_inv(id,function.getUID(),response,errorListener);
+        get.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(get);
+    }
+
+    protected void loadData(Context context,RecyclerView recyclerView,String id,TextView textView,MaterialButton save,SwipeRefreshLayout swipe){
         list.clear();
         adapter.notifyDataSetChanged();
         Response.Listener<String> response = response1 -> {
@@ -254,7 +286,7 @@ public class CategorySetupAdapter extends RecyclerView.Adapter<CategorySetupAdap
 
 
                     }
-                    adapter = new productSetupAdapter(list,context,textView,save);
+                    adapter = new productSetupAdapter(list,context,textView,save,swipe);
                     recyclerView.setAdapter(adapter);
                 }
                 else{

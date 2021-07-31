@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 
 import com.airbnb.lottie.animation.content.Content;
@@ -21,7 +22,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tapadoo.alerter.Alerter;
 
 import java.text.DecimalFormat;
+import java.util.Random;
 
+import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import hari.bounceview.BounceView;
 
@@ -211,6 +214,18 @@ public class function {
                 .show();
 
     }
+
+
+
+
+    public static String phoneMask(String phone) {
+        String res = "";
+        StringBuilder stringBuilder = new StringBuilder(phone);
+        res = stringBuilder.replace(3, 7, "****").toString();
+        return res;
+    }
+
+
 
 
 

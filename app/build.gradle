@@ -103,6 +103,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'biz.laenger.android:vpbs:0.0.6'
 
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
 
 
 
