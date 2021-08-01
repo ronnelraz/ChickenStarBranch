@@ -323,6 +323,7 @@
 
 
         <LinearLayout
+            tools:visibility="visible"
             android:id="@+id/conpassword"
             android:visibility="gone"
             android:layout_marginLeft="10dp"
@@ -334,9 +335,13 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="filled"
+                app:boxBackgroundMode="outline"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/black"
@@ -353,7 +358,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:inputType="textPassword"
-                    android:maxLength="11"
                     tools:text="@tools:sample/us_phones"
                     android:id="@+id/password"
                     android:drawablePadding="10dp"/>
@@ -362,9 +366,13 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="filled"
+                app:boxBackgroundMode="outline"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/black"
@@ -381,7 +389,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:inputType="textPassword"
-                    android:maxLength="11"
                     tools:text="@tools:sample/us_phones"
                     android:id="@+id/confirmpassword"
                     android:drawablePadding="10dp"/>
@@ -390,6 +397,146 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_margin="5dp"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Password Requirement"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/frameOne"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="#A4AA9D"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/checkblk" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center|start"
+                    android:text="At least 8 characters"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/frameTwo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="#A4AA9D"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/checkblk" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center|start"
+                    android:text="Minimum one uppercase"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/frameThree"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="#A4AA9D"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/checkblk" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center|start"
+                    android:text="Minimum one number"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/frameFour"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="#A4AA9D"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/checkblk" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center|start"
+                    android:text="Minimum one symbol"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
 
 
             <com.google.android.material.button.MaterialButton

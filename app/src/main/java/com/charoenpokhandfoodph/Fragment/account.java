@@ -1,10 +1,14 @@
 package com.charoenpokhandfoodph.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -31,6 +37,9 @@ import com.charoenpokhandfoodph.connection.con_loadCompletedOrder;
 import com.charoenpokhandfoodph.connection.con_mobile_change_contact;
 import com.charoenpokhandfoodph.connection.con_mobile_change_contact_verify;
 import com.charoenpokhandfoodph.connection.con_mobile_change_name;
+import com.charoenpokhandfoodph.connection.con_mobile_change_password;
+import com.charoenpokhandfoodph.connection.con_mobile_change_password_verify;
+import com.charoenpokhandfoodph.connection.con_mobile_change_time;
 import com.charoenpokhandfoodph.connection.con_mobile_change_title;
 import com.charoenpokhandfoodph.function;
 import com.charoenpokhandfoodph.modal.completedlist;
@@ -38,6 +47,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.suke.widget.SwitchButton;
@@ -46,6 +58,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
@@ -73,11 +88,16 @@ public class account extends Fragment {
     @BindView(R.id.cardtime) CardView cardtime;
     private boolean oktitle = true;
     AlertDialog dialog;
+    private String stropentime,strclosetime;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private CountDownTimer mCountDownTimer;
     private String SpecialCode = null;
 
+
+    private CardView frameOne, frameTwo, frameThree, frameFour;
+    private boolean isAtLeast8 = false, hasUppercase = false, hasNumber = false, hasSymbol;
+    private String str_opentime,str_closetime;
 
 
 
@@ -141,7 +161,209 @@ public class account extends Fragment {
                             }
                         });
                         cardpassword.setOnClickListener(v -> {
-                            function.toast(v.getContext(),"ask password first");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.full_screen_dialog);
+                            View view = LayoutInflater.from(getActivity()).inflate(R.layout.change_password_verify, null);
+
+                            MaterialButton back = view.findViewById(R.id.back);
+                            back.setOnClickListener(v1 -> dialog.dismiss());
+
+                            TextInputEditText currentpassword = view.findViewById(R.id.currentpassword);
+                            MaterialButton verify = view.findViewById(R.id.verify);
+                            verify.setOnClickListener(v1 -> {
+                                String getcurrentPassword = currentpassword.getText().toString();
+
+                                if(getcurrentPassword.isEmpty()){
+                                    currentpassword.requestFocus();
+                                    function.toast(v1.getContext(),"Enter your password");
+                                }
+                                else{
+                                    Response.Listener<String> responsep = response2 -> {
+                                        try {
+                                            JSONObject jsonResponses = new JSONObject(response2);
+                                            boolean successs = jsonResponses.getBoolean("success");
+                                            if(successs){
+                                                dialog.dismiss();
+                                                bottomsheetEditor(3,"Change Password",null,null,null,null,null,null);
+                                            }
+                                            else{
+                                               function.toast(v1.getContext(),"Invalid Password");
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    };
+                                    Response.ErrorListener errorListener = error -> {
+
+                                    };
+                                    con_mobile_change_password_verify get = new con_mobile_change_password_verify(function.getUID(),getcurrentPassword,responsep,errorListener);
+                                    get.setRetryPolicy(new DefaultRetryPolicy(
+                                            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                    RequestQueue queue = Volley.newRequestQueue(getContext());
+                                    queue.add(get);
+                                }
+                            });
+
+
+
+                            builder.setView(view);
+                            dialog = builder.create();
+                            BounceView.addAnimTo(dialog);
+                            dialog.setCancelable(false);
+                            dialog.setCanceledOnTouchOutside(false);
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(dialog.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                            dialog.show();
+                            dialog.getWindow().setAttributes(lp);
+                        });
+
+                        cardtime.setOnClickListener(v -> {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.full_screen_dialog);
+                            View view = LayoutInflater.from(getActivity()).inflate(R.layout.change_open_close_time, null);
+
+                            MaterialButton back = view.findViewById(R.id.back);
+                            back.setOnClickListener(v1 -> dialog.dismiss());
+
+                            TabLayout tablayout = view.findViewById(R.id.tablayout);
+                            TimePicker timeopen = view.findViewById(R.id.timeopen);
+                            TimePicker timeclose = view.findViewById(R.id.timeclose);
+                            MaterialButton savetime = view.findViewById(R.id.savetime);
+                            tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                                @Override
+                                public void onTabSelected(TabLayout.Tab tab) {
+                                    if(tab.getPosition() == 0){
+                                        timeopen.setVisibility(View.VISIBLE);
+                                        timeclose.setVisibility(View.GONE);
+                                    }
+                                    else{
+                                        timeopen.setVisibility(View.GONE);
+                                        timeclose.setVisibility(View.VISIBLE);
+                                    }
+                                }
+
+                                @Override
+                                public void onTabUnselected(TabLayout.Tab tab) {
+
+                                }
+
+                                @Override
+                                public void onTabReselected(TabLayout.Tab tab) {
+
+                                }
+                            });
+
+
+                            timeopen.setIs24HourView(false);
+                            timeclose.setIs24HourView(false);
+                            timeopen.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
+                                String am_pm = "";
+                                Calendar datetime = Calendar.getInstance();
+                                datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                datetime.set(Calendar.MINUTE, minute);
+
+                                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                                    am_pm = "AM";
+                                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                                    am_pm = "PM";
+
+                                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
+                                str_opentime = strHrsToShow+":"+getDD(datetime.get(Calendar.MINUTE))+" "+am_pm;
+                            });
+
+
+                            timeclose.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
+                                String am_pm = "";
+                                Calendar datetime = Calendar.getInstance();
+                                datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                datetime.set(Calendar.MINUTE, minute);
+
+                                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                                    am_pm = "AM";
+                                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                                    am_pm = "PM";
+
+                                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
+                                str_closetime = strHrsToShow+":"+getDD(datetime.get(Calendar.MINUTE))+" "+am_pm;
+                            });
+
+                            try {
+
+                                timeopen.setCurrentHour(Integer.valueOf(object.getString("opentime").split(":")[0]));
+                                timeclose.setCurrentHour(Integer.valueOf(object.getString("closetime").split(":")[0]));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            savetime.setOnClickListener(v1 -> {
+//                                function.toast(v1.getContext(), str_opentime + " " + str_closetime);
+                                new SweetAlertDialog(v1.getContext(), SweetAlertDialog.WARNING_TYPE)
+                                        .setTitleText("Are you sure?")
+                                        .setContentText("You want to update your opening and closing time to your branch? " + str_opentime + " - " +str_closetime)
+                                        .setConfirmText("YES")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                                Response.Listener<String> response = response1 -> {
+                                                    try {
+                                                        JSONObject jsonResponse = new JSONObject(response1);
+                                                        boolean success = jsonResponse.getBoolean("success");
+                                                        if(success){
+                                                            new SweetAlertDialog(v.getContext(),SweetAlertDialog.SUCCESS_TYPE)
+                                                                    .setTitleText("Changed Successfully!")
+                                                                    .showCancelButton(false)
+                                                                    .show();
+                                                           dialog.dismiss();
+                                                           data();
+
+                                                        }
+
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                };
+                                                Response.ErrorListener errorListener = error -> {
+
+                                                };
+                                                con_mobile_change_time get = new con_mobile_change_time(function.getUID(),str_opentime,str_closetime,response,errorListener);
+                                                get.setRetryPolicy(new DefaultRetryPolicy(
+                                                        DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                                RequestQueue queue = Volley.newRequestQueue(getContext());
+                                                queue.add(get);
+                                            }
+                                        })
+                                        .setCancelButton("NO", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .show();
+
+
+                            });
+
+
+                            builder.setView(view);
+                            dialog = builder.create();
+                            BounceView.addAnimTo(dialog);
+                            dialog.setCancelable(false);
+                            dialog.setCanceledOnTouchOutside(false);
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(dialog.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                            dialog.show();
+                            dialog.getWindow().setAttributes(lp);
                         });
 
 
@@ -167,7 +389,9 @@ public class account extends Fragment {
         queue.add(get);
     }
 
-
+    private String getDD(int num) {
+        return num > 9 ? "" + num : "0" + num;
+    }
 
     protected void bottomsheetEditor(int type,String EditType,String title,String getfname,String getmname,String getlname,String getexname,String getcontact){
 
@@ -213,6 +437,15 @@ public class account extends Fragment {
         MaterialButton savecontact = view.findViewById(R.id.savecontact);
         TextInputEditText contact = view.findViewById(R.id.contact);
         contact.setText(getcontact);
+
+        //4
+        MaterialButton savepassword = view.findViewById(R.id.savepassword);
+        frameOne = view.findViewById(R.id.frameOne);
+        frameTwo = view.findViewById(R.id.frameTwo);
+        frameThree = view.findViewById(R.id.frameThree);
+        frameFour = view.findViewById(R.id.frameFour);
+        TextInputEditText password = view.findViewById(R.id.password);
+        TextInputEditText newpassword = view.findViewById(R.id.confirmpassword);
 
 
          if(type == 0){
@@ -381,11 +614,113 @@ public class account extends Fragment {
 
          }
 
+        else if(type == 3){
+             conPassword.setVisibility(View.VISIBLE);
+             password.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        registrationDataCheck(s.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+             savepassword.setOnClickListener(v->{
+                 String getpassword = password.getText().toString();
+                 String getnewPassword = newpassword.getText().toString();
+
+                 if(getpassword.isEmpty()){
+                     password.requestFocus();
+                     function.toast(v.getContext(),"Enter new password");
+                 }
+                 else if(!getpassword.equals(getnewPassword)){
+                     newpassword.requestFocus();
+                     function.toast(v.getContext(),"Password not match");
+                 }
+                 else{
+                     Response.Listener<String> responsep = response2 -> {
+                         try {
+                             JSONObject jsonResponses = new JSONObject(response2);
+                             boolean successs = jsonResponses.getBoolean("success");
+                             if(successs){
+                                bottomSheetDialog.dismiss();
+                                 new SweetAlertDialog(v.getContext(),SweetAlertDialog.SUCCESS_TYPE)
+                                         .setTitleText("Changed Successfully!")
+                                         .showCancelButton(false)
+                                         .show();
+                             }
+
+                         } catch (JSONException e) {
+                             e.printStackTrace();
+                         }
+                     };
+                     Response.ErrorListener errorListener = error -> {
+
+                     };
+                     con_mobile_change_password get = new con_mobile_change_password(function.getUID(),getnewPassword,responsep,errorListener);
+                     get.setRetryPolicy(new DefaultRetryPolicy(
+                             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                     RequestQueue queue = Volley.newRequestQueue(getContext());
+                     queue.add(get);
+                 }
+             });
+
+
+
+         }
+
         bottomSheetDialog.setContentView(view);
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetDialog.show();
     }
+
+    @SuppressLint("ResourceType")
+    private void registrationDataCheck(String password) {
+
+
+        if (password.length() >= 8) {
+            isAtLeast8 = true;
+            frameOne.setCardBackgroundColor(Color.parseColor(getString(R.color.success_stroke_color)));
+        } else {
+            isAtLeast8 = false;
+            frameOne.setCardBackgroundColor(Color.parseColor("#A4AA9D"));
+
+        }
+        if (password.matches("(.*[A-Z].*)")) {
+            hasUppercase = true;
+            frameTwo.setCardBackgroundColor(Color.parseColor(getString(R.color.success_stroke_color)));
+        } else {
+            hasUppercase = false;
+            frameTwo.setCardBackgroundColor(Color.parseColor("#A4AA9D"));
+        }
+        if (password.matches("(.*[0-9].*)")) {
+            hasNumber = true;
+            frameThree.setCardBackgroundColor(Color.parseColor(getString(R.color.success_stroke_color)));
+        } else {
+            hasNumber = false;
+            frameThree.setCardBackgroundColor(Color.parseColor("#A4AA9D"));
+        }
+        if (password.matches("^(?=.*[_.()@]).*$")) {
+            hasSymbol = true;
+            frameFour.setCardBackgroundColor(Color.parseColor(getString(R.color.success_stroke_color)));
+        } else {
+            hasSymbol = false;
+            frameFour.setCardBackgroundColor(Color.parseColor("#A4AA9D"));
+        }
+
+
+    }
+
 
     public static String GenerateCode() {
         Random rnd = new Random();

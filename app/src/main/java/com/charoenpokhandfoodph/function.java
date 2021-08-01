@@ -149,6 +149,16 @@ public class function {
     }
 
 
+    public boolean passwordValidator(String password){
+        String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        if(password.matches(pattern)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
     public void Preloader(Context context){
         dialogBuilder = new MaterialAlertDialogBuilder(context);
