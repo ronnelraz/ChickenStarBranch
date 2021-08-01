@@ -112,6 +112,24 @@
                app:useMaterialThemeColors="true"
                app:buttonTint="@color/colorPrimary"/>
 
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="20dp"
+                app:icon="@drawable/forgot"
+                app:iconTint="@color/black"
+                app:elevation="5dp"
+                android:textSize="13sp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:rippleColor="@color/black"
+                app:iconGravity="textStart"
+                android:text="Forgot Password?"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:backgroundTint="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:onClick="forgot"/>
+
+
 
             <com.google.android.material.button.MaterialButton
                 android:onClick="login"
@@ -123,22 +141,8 @@
                 app:rippleColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                app:cornerRadius="20dp"
-                app:icon="@drawable/forgot"
-                app:iconTint="@color/black"
-                app:elevation="5dp"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                app:rippleColor="@color/black"
-                app:iconGravity="textStart"
-                android:text="Forgot Password"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:backgroundTint="#E7EAED"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"/>
+
 
 
 
