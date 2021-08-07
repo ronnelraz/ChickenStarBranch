@@ -2,6 +2,7 @@ package com.charoenpokhandfoodph.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,6 +122,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
                 Response.ErrorListener errorListener = error -> {
 
                 };
+                Log.d("ID",getData.getId());
                 update_product_stocks get = new update_product_stocks(getData.getId(),"minus",response,errorListener);
                 get.setRetryPolicy(new DefaultRetryPolicy(
                         DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,

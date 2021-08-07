@@ -119,10 +119,6 @@ public class Home extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        //fragment
-//        fragmentManager = getSupportFragmentManager();
-//        setFrag(new Tab1());
-
 
         View headerView = navigationView.getHeaderView(0);
         fullname = headerView.findViewById(R.id.fullname);
